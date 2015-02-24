@@ -47,12 +47,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GroupRepository.cs" />
+    <Compile Include="GroupToSubjectRepository.cs" />
+    <Compile Include="IGroupToSubjectRepository.cs" />
+    <Compile Include="IStudentRepository.cs" />
     <Compile Include="IGroupRepository.cs" />
+    <Compile Include="ISubjectRepository.cs" />
     <Compile Include="Migrations\201502241544399_First migration.cs" />
     <Compile Include="Migrations\201502241544399_First migration.Designer.cs">
       <DependentUpon>201502241544399_First migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="StudentRepository.cs" />
+    <Compile Include="SubjectRepository.cs" />
     <Compile Include="UniversityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

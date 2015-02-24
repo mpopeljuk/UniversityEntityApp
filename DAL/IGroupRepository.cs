@@ -12,7 +12,7 @@ namespace DAL
         IEnumerable<Group> GetGroups();
         Group GetGroupByID(int groupId);
         void InsertGroup(Group group);
-        void DeleteGroup(int groupID);
+        void DeleteGroup(int groupId);
         void UpdateGroup(Group group);
         void Save();
     }

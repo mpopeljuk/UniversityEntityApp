@@ -8,40 +8,40 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class GroupRepository : IGroupRepository, IDisposable
+    class StudentRepository : IStudentRepository, IDisposable
     {
         private UniversityContext context;
         private bool disposed = false;
 
-        public GroupRepository(UniversityContext _context)
+        public StudentRepository(UniversityContext _context)
         {
             context = _context;
         }
 
-        public IEnumerable<DBModels.Group> GetGroups()
+        public IEnumerable<DBModels.Student> GetStudents()
         {
-            return context.Group.ToList();
+            return context.Student.ToList();
         }
 
-        public DBModels.Group GetGroupByID(int groupId)
+        Student IStudentRepository.GetStudentByID(int studentId)
         {
-            return context.Group.Find(groupId);
+            return context.Student.Find(studentId);
         }
 
-        public void InsertGroup(DBModels.Group group)
+        public void InsertStudent(Student student)
         {
-            context.Group.Add(group);
+            context.Student.Add(student);
         }
 
-        public void DeleteGroup(int groupId)
+        public void DeleteStudent(int studentId)
         {
-            Group group = context.Group.Find(groupId);
-            context.Group.Remove(group);
+            Student student = context.Student.Find(studentId);
+            context.Student.Remove(student);
         }
 
-        public void UpdateGroup(DBModels.Group group)
+        public void UpdateStudent(Student student)
         {
-            context.Entry(group).State = EntityState.Modified;
+            context.Entry(student).State = EntityState.Modified;
         }
 
         public void Save()
