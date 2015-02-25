@@ -21,10 +21,10 @@ namespace DAL
             this.Configuration.LazyLoadingEnabled = true;
         }
 
-        public DbSet<Group> Group { get; set; }
-        public DbSet<Subject> Subject { get; set; }
-        public DbSet<Student> Student { get; set; }
-        public DbSet<GroupToSubject> GroupToSubject { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<GroupToSubject> GroupToSubjects { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

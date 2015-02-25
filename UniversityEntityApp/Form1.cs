@@ -15,21 +15,38 @@ namespace UniversityEntityApp
     public partial class Form1 : Form
     {
         FormUpdateHelper fh;
+        
+        /// <summary>
+        /// Check what combobox was rotated.
+        /// If subject = false, if group = true
+        /// Is used when deleting row from GroupToSubject.
+        /// </summary>
+        bool groupOrSubject; 
+
+        public enum TableNames
+        {
+            Groups,
+            Students,
+            Subjects,
+            GroupToSubjects
+        }
 
         public Form1()
         {
             InitializeComponent();
             fh = new FormUpdateHelper();
 
-            //showTableGrid.DataSource = da.GetTable("Groups");
+            tableComboBox.Text = "Groups";
+            groupOrSubject = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            showTableGrid.DataSource = fh.ShowTable("Groups");
             showTableGrid.Columns[0].Visible = false;
             adjustWorkTable();
             workingGrid.Columns[0].Visible = false;
-            tableComboBox.Text = "Groups";
+            
         }
 
         private void tableComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -39,7 +56,7 @@ namespace UniversityEntityApp
 
         private void addRowButton_Click(object sender, EventArgs e)
         {
-            /*if (fh.isValidDataEntered(workingGrid))
+            if (fh.isValidDataEntered(workingGrid))
             {
                 int result = fh.addRows(tableComboBox.Text, workingGrid);
                 showTable();
@@ -49,42 +66,63 @@ namespace UniversityEntityApp
             else
             {
                 MessageBox.Show(Properties.Resources.M_CELLS_MUST_BE_NOT_EMPTY);
-            }*/
+            }
         }
 
         private void deleteSelectedButton_Click(object sender, EventArgs e)
         {
-           /* DialogResult result = MessageBox.Show(Properties.Resources.M_DELETE_CONFIRM_TEXT,
+            int affRows = 0;
+            DialogResult result = MessageBox.Show(Properties.Resources.M_DELETE_CONFIRM_TEXT,
                         Properties.Resources.M_DELETE_CONFIRM_HEADER,
                         MessageBoxButtons.OKCancel);
 
             if (result == DialogResult.OK)
             {
-                int affRows = fh.deleteRow(tableComboBox.Text,
+                if (tableComboBox.Text == "GroupToSubject")
+                {
+                    if (groupOrSubject)
+                    {
+                        affRows = fh.deleteRow(tableComboBox.Text,
+                            fh.GetIdFromString(groupComboBox.Text),
                         int.Parse(showTableGrid.CurrentRow.Cells[0].Value.ToString()));
+                    }
+                    else
+                    {
+                        affRows = fh.deleteRow(tableComboBox.Text,
+                        int.Parse(showTableGrid.CurrentRow.Cells[0].Value.ToString()),
+                        fh.GetIdFromString(groupComboBox.Text));
+                    }
+                    
+                }
+                else
+                {
+                    affRows = fh.deleteRow(tableComboBox.Text,
+                        int.Parse(showTableGrid.CurrentRow.Cells[0].Value.ToString()));
+                }
+                
                 showTable();
                 MessageBox.Show( 
                     String.Format(Properties.Resources.M_AFFECTED_ROWS, affRows) );
-            }*/
+            }
         }
 
         private void changeSelectedButton_Click(object sender, EventArgs e)
         {
-            /*if (!fh.isInChangeList(workingGrid, showTableGrid.CurrentRow.Cells[0].Value))
+            if (!fh.isInChangeList(workingGrid, showTableGrid.CurrentRow.Cells[0].Value))
             {
                 workingGrid.Rows.Add(fh.CloneWithValues(showTableGrid.CurrentRow));
             }
-            workingGrid.AllowUserToAddRows = false;*/
+            workingGrid.AllowUserToAddRows = false;
         }
 
         private void saveChangesButton_Click(object sender, EventArgs e)
         {
             if (fh.isValidDataEntered(workingGrid))
             {
-                /*int result = fh.updateRows(tableComboBox.Text, workingGrid);
+                int result = fh.updateRows(tableComboBox.Text, workingGrid);
                 showTable();
                 MessageBox.Show(
-                    String.Format(Properties.Resources.M_AFFECTED_ROWS, result));*/
+                    String.Format(Properties.Resources.M_AFFECTED_ROWS, result));
             }
             else
             {
@@ -100,18 +138,26 @@ namespace UniversityEntityApp
 
         private void subjectComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //showTableGrid.DataSource = da.GetGroupsForSubject(fh.GetIdFromString(subjectComboBox.Text));
+            groupOrSubject = false;
+            showTableGrid.DataSource = fh.ShowGroupToSubjectTable(TableNames.Subjects, subjectComboBox.Text);
         }
 
         private void groupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //showTableGrid.DataSource = da.GetSubjectsForGroup(fh.GetIdFromString(groupComboBox.Text));
+            groupOrSubject = true;
+            showTableGrid.DataSource = fh.ShowGroupToSubjectTable(TableNames.Groups, groupComboBox.Text);
         }
 
         //Checking for vaid age data
         private void workingGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            string val = workingGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            string val = null;
+
+            if (workingGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+            {
+                val = workingGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+            }
+
             if (workingGrid.Columns[e.ColumnIndex].HeaderText == "Age" &&
                     !String.IsNullOrWhiteSpace( val ))
             {
@@ -134,7 +180,7 @@ namespace UniversityEntityApp
         /// </summary>
         private void adjustWorkTable()
         {
-            /*workingGrid.Columns.Clear();
+            workingGrid.Columns.Clear();
 
             workingGrid.ColumnCount = showTableGrid.ColumnCount;
 
@@ -162,7 +208,7 @@ namespace UniversityEntityApp
                     break;
             }
 
-            workingGrid.Columns[0].Visible = showIdCheckBox.Checked;*/
+            workingGrid.Columns[0].Visible = showIdCheckBox.Checked;
         }
 
         /// <summary>
@@ -179,17 +225,14 @@ namespace UniversityEntityApp
 
             groupToSubjectPanel.Visible = false;
             showTableGrid.DataSource = fh.ShowTable(tableComboBox.Text);
-            //showTableGrid.DataSource = da.GetTable(tableComboBox.Text);
 
-            /*if (tableComboBox.Text == "GroupToSubject")
+            if (tableComboBox.Text == "GroupToSubject")
             {
                 changeSelectedButton.Enabled = saveChangeButton.Enabled = false;
                 groupToSubjectPanel.Visible = true;
                 groupComboBox.DataSource = fh.getRelationComboBox("Groups").Items;
                 subjectComboBox.DataSource = fh.getRelationComboBox("Subjects").Items;
-            }*/
-
-            
+            }
 
             workingGrid.AllowUserToAddRows = true;
 

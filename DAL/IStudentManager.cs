@@ -1,4 +1,5 @@
 ﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    interface IStudentRepository : IDisposable
+    public interface IStudentManager : IDisposable
     {
-        IEnumerable<Student> GetStudents();
+        IEnumerable<StudentDTO> GetStudents();
         Student GetStudentByID(int studentId);
         void InsertStudent(Student student);
         void DeleteStudent(int studentId);
         void UpdateStudent(Student student);
-        void Save();
+        int Save();
     }
 }

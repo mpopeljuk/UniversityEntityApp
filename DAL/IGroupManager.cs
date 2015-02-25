@@ -1,4 +1,5 @@
 ﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    interface IGroupRepository : IDisposable
+    public interface IGroupManager : IDisposable
     {
-        IEnumerable<Group> GetGroups();
+        IEnumerable<GroupDTO> GetGroups();
         Group GetGroupByID(int groupId);
         void InsertGroup(Group group);
         void DeleteGroup(int groupId);
         void UpdateGroup(Group group);
-        void Save();
+        int Save();
     }
 }

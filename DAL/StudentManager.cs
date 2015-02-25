@@ -1,4 +1,5 @@
 ﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,35 +9,43 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class StudentRepository : IStudentRepository, IDisposable
+    public class StudentManager : IStudentManager, IDisposable
     {
         private UniversityContext context;
         private bool disposed = false;
 
-        public StudentRepository(UniversityContext _context)
+        public StudentManager(UniversityContext _context)
         {
             context = _context;
         }
 
-        public IEnumerable<DBModels.Student> GetStudents()
+        public IEnumerable<StudentDTO> GetStudents()
         {
-            return context.Student.ToList();
+            var list = context.Students.Select(item => new StudentDTO()
+            {
+                Id = item.Id,
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Age = item.Age,
+                GroupName = item.Group.Name
+            });
+            return list.ToList();
         }
 
-        Student IStudentRepository.GetStudentByID(int studentId)
+        Student IStudentManager.GetStudentByID(int studentId)
         {
-            return context.Student.Find(studentId);
+            return context.Students.Find(studentId);
         }
 
         public void InsertStudent(Student student)
         {
-            context.Student.Add(student);
+            context.Students.Add(student);
         }
 
         public void DeleteStudent(int studentId)
         {
-            Student student = context.Student.Find(studentId);
-            context.Student.Remove(student);
+            Student student = context.Students.Find(studentId);
+            context.Students.Remove(student);
         }
 
         public void UpdateStudent(Student student)
@@ -44,9 +53,9 @@ namespace DAL
             context.Entry(student).State = EntityState.Modified;
         }
 
-        public void Save()
+        public int Save()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

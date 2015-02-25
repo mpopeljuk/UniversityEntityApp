@@ -2,6 +2,7 @@ namespace DAL.Migrations
 {
     using DBModels;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -17,51 +18,42 @@ namespace DAL.Migrations
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-            context.Group.AddOrUpdate(
-                new Group { Name = "541" },
-                new Group { Name = "441" },
-                new Group { Name = "341" }
+            List<Group> groups = new List<Group>();
+            groups.Add(new Group { Name = "541" });
+            groups.Add(new Group { Name = "441" });
+            groups.Add(new Group { Name = "341" });
+
+            List<Subject> subjects = new List<Subject>();
+            subjects.Add(new Subject { Name = "Math"  });
+            subjects.Add(new Subject { Name = "History" });
+            subjects.Add(new Subject { Name = "Physics" });
+
+            context.Groups.AddOrUpdate( groups.ToArray() );
+            context.Subjects.AddOrUpdate(subjects.ToArray());
+
+            context.Students.AddOrUpdate(
+                new Student { FirstName = "Jack", LastName = "Daniels", Age = 35, Group = groups[0] },
+                new Student { FirstName = "Bryan", LastName = "Loves", Age = 23, Group = groups[0] },
+                new Student { FirstName = "Steve", LastName = "John", Age = 31, Group = groups[0] },
+
+                new Student { FirstName = "Jacke", LastName = "Faniels", Age = 35, Group = groups[1] },
+                new Student { FirstName = "Briam", LastName = "Lotes", Age = 23, Group = groups[1] },
+                new Student { FirstName = "Creve", LastName = "Jofen", Age = 31, Group = groups[1] },
+
+                new Student { FirstName = "Jideck", LastName = "Dasels", Age = 35, Group = groups[2] },
+                new Student { FirstName = "Bradan", LastName = "Loges", Age = 23, Group = groups[2] },
+                new Student { FirstName = "Styte", LastName = "Johser", Age = 31, Group = groups[2] }
                 );
 
-            context.Group.AddOrUpdate(
-                new Group { Name = "Math" },
-                new Group { Name = "History" },
-                new Group { Name = "Physics" }
-                );
+            context.GroupToSubjects.AddOrUpdate(
+                new GroupToSubject { Group = groups[0], Subject = subjects[0] },
+                new GroupToSubject { Group = groups[0], Subject = subjects[1] },
 
-            context.Student.AddOrUpdate(
-                new Student { FirstName = "Jack", LastName = "Daniels", Age = 35, GroupId = 0 },
-                new Student { FirstName = "Bryan", LastName = "Loves", Age = 23, GroupId = 0 },
-                new Student { FirstName = "Steve", LastName = "John", Age = 31, GroupId = 0 },
+                new GroupToSubject { Group = groups[1], Subject = subjects[1] },
+                new GroupToSubject { Group = groups[1], Subject = subjects[2] },
 
-                new Student { FirstName = "Jacke", LastName = "Faniels", Age = 35, GroupId = 1 },
-                new Student { FirstName = "Briam", LastName = "Lotes", Age = 23, GroupId = 1 },
-                new Student { FirstName = "Creve", LastName = "Jofen", Age = 31, GroupId = 1 },
-
-                new Student { FirstName = "Jideck", LastName = "Dasels", Age = 35, GroupId = 2 },
-                new Student { FirstName = "Bradan", LastName = "Loges", Age = 23, GroupId = 2 },
-                new Student { FirstName = "Styte", LastName = "Johser", Age = 31, GroupId = 2 }
-                );
-
-            context.GroupToSubject.AddOrUpdate(
-                new GroupToSubject {GroupId = 0, SubjectId = 0 },
-                new GroupToSubject {GroupId = 0, SubjectId = 1 },
-
-                new GroupToSubject {GroupId = 1, SubjectId = 1 },
-                new GroupToSubject {GroupId = 1, SubjectId = 2 },
-
-                new GroupToSubject {GroupId = 2, SubjectId = 1 },
-                new GroupToSubject {GroupId = 2, SubjectId = 3 }
+                new GroupToSubject { Group = groups[2], Subject = subjects[2] },
+                new GroupToSubject { Group = groups[2], Subject = subjects[0] }
                 );
         }
     }

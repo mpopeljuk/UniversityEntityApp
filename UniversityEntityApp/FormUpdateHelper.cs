@@ -13,35 +13,53 @@ namespace UniversityEntityApp
 {
     class FormUpdateHelper
     {
-        private UniversityContext context;
+        UnitOfWork uOW;
 
         public FormUpdateHelper() 
         {
-            context = new UniversityContext();
+            uOW = new UnitOfWork();
         }
 
         public DataTable ShowTable(string tableName)
         {
             DataTable result = new DataTable();
-            var list = new GroupRepository(context).GetGroups().ToList();
-            return convertToDatatable<Group>(list);
-            /*switch (tableName)
+
+            switch (tableName)
             {
                 case "Groups":
-                    var list = new GroupRepository(context).GetGroups().ToList();
-                    return convertToDatatable<Group>(list);
+                    return convertToDatatable(
+                        uOW.GroupRep.GetGroups().ToList());
+
                 case "Subjects":
-                    break;
+                    return convertToDatatable(
+                        uOW.SubjectRep.GetSubjects().ToList());
+
                 case "Students":
-                    break;
-                case "GroupToSubject":
-                    break;
+                    return convertToDatatable(
+                        uOW.StudentRep.GetStudents().ToList());
+
                 default:
-                    break;
-            }*/
+                    return new DataTable();
+            }
         }
 
-        /*
+        public DataTable ShowGroupToSubjectTable(Form1.TableNames tableName, string arg) 
+        {
+            int id = GetIdFromString(arg);
+            if (tableName == Form1.TableNames.Subjects) //subject change
+            {
+                return convertToDatatable( uOW.GtsRep.GetGroupsForSubject(id).ToList() );
+            }
+            else if (tableName == Form1.TableNames.Groups) //group change
+            {
+                return convertToDatatable(uOW.GtsRep.GetSubjectsForGroup(id).ToList());
+            }
+            else
+            {
+                return new DataTable();
+            }
+        }
+        
         /// <summary>
         /// Create a DataGridViewComboBoxColumn with items of table.
         /// </summary>
@@ -50,17 +68,27 @@ namespace UniversityEntityApp
         public DataGridViewComboBoxColumn getRelationComboBox(string tableName)
         {
             DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
-            if (tableName == "Groups" || tableName == "Subjects")
+            if (tableName == "Groups")
             {
                 cmb.HeaderText = "Select " + tableName;
 
-                DataTable dt = da.GetIdNameVals(tableName);
+                DataTable dt = convertToDatatable(uOW.GroupRep.GetNameIdPair().ToList());
 
                 foreach (DataRow item in dt.Rows)
                 {
                     cmb.Items.Add(item["Name"] + "," + item["Id"]);
                 }
-                    
+            }
+            else if (tableName == "Subjects")
+            {
+                cmb.HeaderText = "Select " + tableName;
+
+                DataTable dt = convertToDatatable(uOW.SubjectRep.GetNameIdPair().ToList());
+
+                foreach (DataRow item in dt.Rows)
+                {
+                    cmb.Items.Add(item["Name"] + "," + item["Id"]);
+                }
             }
             else
             {
@@ -70,7 +98,7 @@ namespace UniversityEntityApp
             cmb.FlatStyle = FlatStyle.Flat;
             return cmb;
         }
-
+        
         /// <summary>
         /// Split with comma and returns last value as int. If failed - return 0.
         /// </summary>
@@ -104,7 +132,7 @@ namespace UniversityEntityApp
             }
             return clonedRow;
         }
-
+        
         /// <summary>
         /// Check if row is allready in change list for not add it twice.
         /// </summary>
@@ -121,7 +149,7 @@ namespace UniversityEntityApp
             }
             return false;
         }
-        */
+        
         /// <summary>
         /// Check grid for empty cells. 
         /// Recoloring empty cells to another color.
@@ -146,7 +174,7 @@ namespace UniversityEntityApp
             grid.AllowUserToAddRows = true;
             return result;
         }
-        /*
+        
         /// <summary>
         /// Adding all rows from workingGrid to database.
         /// </summary>
@@ -161,56 +189,70 @@ namespace UniversityEntityApp
                 case "Groups":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.AddGroup( grid.Rows[i].Cells[1].Value.ToString() );
+                        uOW.GroupRep.InsertGroup(new Group() { Name = grid.Rows[i].Cells[1].Value.ToString() });
                     }
+                    affectedRows = uOW.GroupRep.Save();
                     break;
+
                 case "Students":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.AddStudent(grid.Rows[i].Cells[1].Value.ToString(),
-                                        grid.Rows[i].Cells[2].Value.ToString(),
-                                        int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
-                                        GetIdFromString(grid.Rows[i].Cells[4].Value.ToString()));
+                        uOW.StudentRep.InsertStudent(new Student() {
+                            FirstName = grid.Rows[i].Cells[1].Value.ToString(),
+                            LastName = grid.Rows[i].Cells[2].Value.ToString(),
+                            Age = int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
+                            GroupId = GetIdFromString(grid.Rows[i].Cells[4].Value.ToString())
+                                });
                     }
+                    affectedRows = uOW.StudentRep.Save();
                     break;
+
                 case "Subjects":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.AddSubject(grid.Rows[i].Cells[1].Value.ToString());
+                        uOW.SubjectRep.InsertSubject(new Subject() { Name = grid.Rows[i].Cells[1].Value.ToString() });
                     }
+                    affectedRows = uOW.SubjectRep.Save();
                     break;
+
                 case "GroupToSubject":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.AddGroupToSubject(
-                                GetIdFromString(grid.Rows[i].Cells[1].Value.ToString()),
-                                GetIdFromString(grid.Rows[i].Cells[2].Value.ToString()));
+                        uOW.GtsRep.InsertGroupToSubject(new GroupToSubject() {
+                            GroupId = GetIdFromString(grid.Rows[i].Cells[1].Value.ToString()),
+                            SubjectId = GetIdFromString(grid.Rows[i].Cells[2].Value.ToString())
+                                });
                     }
+                    affectedRows = uOW.GtsRep.Save();
                     break;
                 default:
                     break;
             }
             return affectedRows;
         }
-
+        
         /// <summary>
         /// Delete row from table.
         /// </summary>
         /// <param name="tableName">Table, where row will be deleted.</param>
         /// <param name="rId">Id of row you want to delete</param>
         /// <returns></returns>
-        public int deleteRow(string tableName, int rId)
+        public int deleteRow(string tableName, int rId, int secondId = 0)
         {
             switch (tableName)
             {
                 case "Groups":
-                    return da.DeleteGroupRecord(rId);
+                    uOW.GroupRep.DeleteGroup(rId);
+                    return uOW.GroupRep.Save();
                 case "Students":
-                    return da.DeleteStudentRecord(rId);
+                    uOW.StudentRep.DeleteStudent(rId);
+                    return uOW.StudentRep.Save();;
                 case "Subjects":
-                    return da.DeleteSubjectRecord(rId);
+                    uOW.SubjectRep.DeleteSubject(rId);
+                    return uOW.SubjectRep.Save();
                 case "GroupToSubject":
-                    return da.DeleteGroupToSubj(rId);
+                    uOW.GtsRep.DeleteGroupToSubject(rId, secondId);
+                    return uOW.GtsRep.Save();
                 default:
                     break;
             }
@@ -218,7 +260,7 @@ namespace UniversityEntityApp
         }
         
         /// <summary>
-        /// TODOs
+        /// Update rows in database.
         /// </summary>
         /// <returns>Number of affected rows.</returns>
         public int updateRows(string tableName, DataGridView grid) 
@@ -229,36 +271,52 @@ namespace UniversityEntityApp
                 case "Groups":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.UpdateGroupRecord(
-                                int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                                grid.Rows[i].Cells[1].Value.ToString());
+                        uOW.GroupRep.UpdateGroup(new Group() { 
+                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                            Name = grid.Rows[i].Cells[1].Value.ToString() 
+                        });
                     }
+                    affectedRows = uOW.GroupRep.Save();
                     break;
+
                 case "Students":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.UpdateStudentRecord(
-                                int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                                grid.Rows[i].Cells[1].Value.ToString(),
-                                grid.Rows[i].Cells[2].Value.ToString(),
-                                int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
-                                GetIdFromString(grid.Rows[i].Cells[4].Value.ToString()));
+                        uOW.StudentRep.UpdateStudent(new Student()
+                        {
+                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                            FirstName = grid.Rows[i].Cells[1].Value.ToString(),
+                            LastName = grid.Rows[i].Cells[2].Value.ToString(),
+                            Age = int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
+                            GroupId = GetIdFromString(grid.Rows[i].Cells[4].Value.ToString())
+                        });
                     }
+                    affectedRows = uOW.StudentRep.Save();
                     break;
+
                 case "Subjects":
                     for (int i = 0; i < grid.RowCount - 1; i++)
                     {
-                        affectedRows += da.UpdateSubjectRecord(
-                                int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                                grid.Rows[i].Cells[1].Value.ToString());
+                        uOW.SubjectRep.UpdateSubject(new Subject() {
+                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                            Name = grid.Rows[i].Cells[1].Value.ToString() 
+                        });
                     }
+                    affectedRows = uOW.SubjectRep.Save();
                     break;
+
                 default:
                     break;
             }
             return affectedRows;
         }
-        */
+        
+        /// <summary>
+        /// Transform list to DataTable.
+        /// </summary>
+        /// <typeparam name="T">List type.</typeparam>
+        /// <param name="data">List itself.</param>
+        /// <returns>DataTable from list</returns>
         private DataTable convertToDatatable<T>(List<T> data)
         {
             PropertyDescriptorCollection props =

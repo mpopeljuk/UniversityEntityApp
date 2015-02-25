@@ -1,4 +1,5 @@
 ﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,35 +9,50 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class SubjectRepository : ISubjectRepository, IDisposable
+    public class SubjectManager : ISubjectManager, IDisposable
     {
         private UniversityContext context;
         private bool disposed = false;
 
-        public SubjectRepository(UniversityContext _context)
+        public SubjectManager(UniversityContext _context)
         {
             context = _context;
         }
 
-        public IEnumerable<DBModels.Subject> GetSubjects()
+        public IEnumerable<NameIdPairDTO> GetNameIdPair()
         {
-            return context.Subject.ToList();
+            var list = context.Subjects.Select(item => new NameIdPairDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
+            return list.ToList();
+        }
+
+        public IEnumerable<SubjectDTO> GetSubjects()
+        {
+            var list = context.Subjects.Select(item => new SubjectDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
+            return list.ToList();
         }
 
         public DBModels.Subject GetSubjectByID(int subjectId)
         {
-            return context.Subject.Find(subjectId);
+            return context.Subjects.Find(subjectId);
         }
 
         public void InsertSubject(DBModels.Subject subject)
         {
-            context.Subject.Add(subject);
+            context.Subjects.Add(subject);
         }
 
         public void DeleteSubject(int subjectId)
         {
-            Subject subject = context.Subject.Find(subjectId);
-            context.Subject.Remove(subject);
+            Subject subject = context.Subjects.Find(subjectId);
+            context.Subjects.Remove(subject);
         }
 
         public void UpdateSubject(DBModels.Subject subject)
@@ -44,9 +60,9 @@ namespace DAL
             context.Entry(subject).State = EntityState.Modified;
         }
 
-        public void Save()
+        public int Save()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

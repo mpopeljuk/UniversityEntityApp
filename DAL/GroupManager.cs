@@ -1,4 +1,5 @@
 ﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,35 +9,49 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class GroupRepository : IGroupRepository, IDisposable
+    public class GroupManager : IGroupManager, IDisposable
     {
         private UniversityContext context;
         private bool disposed = false;
 
-        public GroupRepository(UniversityContext _context)
+        public GroupManager(UniversityContext _context)
         {
             context = _context;
         }
 
-        public IEnumerable<DBModels.Group> GetGroups()
+        public IEnumerable<NameIdPairDTO> GetNameIdPair()
         {
-            return context.Group.ToList();
+            var list = context.Groups.Select(item => new NameIdPairDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
+            return list.ToList();
+        }
+
+        public IEnumerable<GroupDTO> GetGroups()
+        {
+            var list = context.Groups.Select(item => new GroupDTO() {
+                Id = item.Id,
+                Name = item.Name
+                });
+            return list.ToList();
         }
 
         public DBModels.Group GetGroupByID(int groupId)
         {
-            return context.Group.Find(groupId);
+            return context.Groups.Find(groupId);
         }
 
         public void InsertGroup(DBModels.Group group)
         {
-            context.Group.Add(group);
+            context.Groups.Add(group);
         }
 
         public void DeleteGroup(int groupId)
         {
-            Group group = context.Group.Find(groupId);
-            context.Group.Remove(group);
+            Group group = context.Groups.Find(groupId);
+            context.Groups.Remove(group);
         }
 
         public void UpdateGroup(DBModels.Group group)
@@ -44,9 +59,9 @@ namespace DAL
             context.Entry(group).State = EntityState.Modified;
         }
 
-        public void Save()
+        public int Save()
         {
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)

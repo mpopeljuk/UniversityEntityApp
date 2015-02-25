@@ -46,19 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupRepository.cs" />
-    <Compile Include="GroupToSubjectRepository.cs" />
-    <Compile Include="IGroupToSubjectRepository.cs" />
-    <Compile Include="IStudentRepository.cs" />
-    <Compile Include="IGroupRepository.cs" />
-    <Compile Include="ISubjectRepository.cs" />
+    <Compile Include="GroupManager.cs" />
+    <Compile Include="GroupToSubjectManager.cs" />
+    <Compile Include="IGroupToSubjectManager.cs" />
+    <Compile Include="IStudentManager.cs" />
+    <Compile Include="IGroupManager.cs" />
+    <Compile Include="ISubjectManager.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201502241544399_First migration.cs" />
     <Compile Include="Migrations\201502241544399_First migration.Designer.cs">
       <DependentUpon>201502241544399_First migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502251055283_Testing seed.cs" />
+    <Compile Include="Migrations\201502251055283_Testing seed.Designer.cs">
+      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="StudentRepository.cs" />
-    <Compile Include="SubjectRepository.cs" />
+    <Compile Include="StudentManager.cs" />
+    <Compile Include="SubjectManager.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="UniversityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +82,12 @@
     <EmbeddedResource Include="Migrations\201502241544399_First migration.resx">
       <DependentUpon>201502241544399_First migration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251055283_Testing seed.resx">
+      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
