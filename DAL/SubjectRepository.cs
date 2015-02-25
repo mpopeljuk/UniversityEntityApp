@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    class SubjectRepository : ISubjectRepository, IDisposable
+    public class SubjectRepository : ISubjectRepository, IDisposable
     {
         private UniversityContext context;
         private bool disposed = false;

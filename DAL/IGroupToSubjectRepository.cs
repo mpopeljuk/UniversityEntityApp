@@ -12,7 +12,7 @@ namespace DAL
         IEnumerable<GroupToSubject> GetSubjectsForGroup(int groupId);
         IEnumerable<GroupToSubject> GetGroupsForSubject(int subjectId);
         void InsertGroupToSubject(GroupToSubject gts);
-        void DeleteGroupToSubject(int gtsId);
+        void DeleteGroupToSubject(int groupId, int subjectId);
         void Save();
     }
 }
