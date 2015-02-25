@@ -209,6 +209,7 @@ namespace UniversityEntityApp
             }
 
             workingGrid.Columns[0].Visible = showIdCheckBox.Checked;
+            showTableGrid.Columns[0].Visible = showIdCheckBox.Checked;
         }
 
         /// <summary>
@@ -235,7 +236,6 @@ namespace UniversityEntityApp
             }
 
             workingGrid.AllowUserToAddRows = true;
-
             adjustWorkTable();
         }
 
