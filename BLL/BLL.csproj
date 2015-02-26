@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5A7DFA23-F9EA-4EA6-8CD2-ADAACE3DE5D2}</ProjectGuid>
+    <ProjectGuid>{038DBDCD-820A-45AB-9492-94CE38966B67}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DAL</RootNamespace>
-    <AssemblyName>DAL</AssemblyName>
+    <RootNamespace>BLL</RootNamespace>
+    <AssemblyName>BLL</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,42 +39,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repo\GenericRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
-    <Compile Include="Migrations\201502241544399_First migration.cs" />
-    <Compile Include="Migrations\201502241544399_First migration.Designer.cs">
-      <DependentUpon>201502241544399_First migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502251055283_Testing seed.cs" />
-    <Compile Include="Migrations\201502251055283_Testing seed.Designer.cs">
-      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="UnitOfWork.cs" />
-    <Compile Include="UniversityContext.cs" />
+    <Compile Include="DTO\GroupDTO.cs" />
+    <Compile Include="DTO\GroupToSubjectDTO.cs" />
+    <Compile Include="DTO\NameIdPairDTO.cs" />
+    <Compile Include="DTO\StudentDTO.cs" />
+    <Compile Include="DTO\SubjectDTO.cs" />
+    <Compile Include="Implements\GroupManager.cs" />
+    <Compile Include="Implements\GroupToSubjectManager.cs" />
+    <Compile Include="Implements\StudentManager.cs" />
+    <Compile Include="Implements\SubjectManager.cs" />
+    <Compile Include="Interfaces\IGroupManager.cs" />
+    <Compile Include="Interfaces\IGroupToSubjectManager.cs" />
+    <Compile Include="Interfaces\IStudentManager.cs" />
+    <Compile Include="Interfaces\ISubjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{5a7dfa23-f9ea-4ea6-8cd2-adaace3de5d2}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DBModels\DBModels.csproj">
       <Project>{5e3b07d7-68d8-41ee-a88d-03fa29c785d8}</Project>
       <Name>DBModels</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502241544399_First migration.resx">
-      <DependentUpon>201502241544399_First migration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502251055283_Testing seed.resx">
-      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

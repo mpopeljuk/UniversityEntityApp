@@ -6,28 +6,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using DBModels;
+using DAL.Repo;
 
 namespace DAL
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private UniversityContext context;
 
-        private GroupManager groupRep;
-        private SubjectManager subjectRep;
-        private StudentManager studentRep;
-        private GroupToSubjectManager gtsRep;
+        private GenericRepository<Group> groupRep;
+        private GenericRepository<Subject> subjectRep;
+        private GenericRepository<Student> studentRep;
+        private GenericRepository<GroupToSubject> gtsRep;
+
 
         public UnitOfWork()
         {
             context = new UniversityContext();
-            groupRep = new GroupManager(context);
-            subjectRep = new SubjectManager(context);
-            studentRep = new StudentManager(context);
-            gtsRep = new GroupToSubjectManager(context);
+
+            groupRep = new GenericRepository<Group>(context);
+            subjectRep = new GenericRepository<Subject>(context);
+            studentRep = new GenericRepository<Student>(context);
+            gtsRep = new GenericRepository<GroupToSubject>(context);
         }
 
-        public GroupManager GroupRep
+        public GenericRepository<Group> GroupRep
         {
             get
             {
@@ -35,7 +38,7 @@ namespace DAL
             }
         }
 
-        public SubjectManager SubjectRep
+        public GenericRepository<Subject> SubjectRep
         {
             get
             {
@@ -43,7 +46,7 @@ namespace DAL
             }
         }
 
-        public StudentManager StudentRep
+        public GenericRepository<Student> StudentRep
         {
             get
             {
@@ -51,12 +54,37 @@ namespace DAL
             }
         }
 
-        public GroupToSubjectManager GtsRep
+        public GenericRepository<GroupToSubject> GtsRep
         {
             get
             {
                 return gtsRep;
             }
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    context.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
     }
