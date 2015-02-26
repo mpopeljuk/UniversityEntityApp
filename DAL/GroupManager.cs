@@ -57,6 +57,7 @@ namespace DAL
         public void UpdateGroup(DBModels.Group group)
         {
             context.Entry(group).State = EntityState.Modified;
+            //context.Entry(group).State = EntityState.
         }
 
         public int Save()

@@ -269,40 +269,51 @@ namespace UniversityEntityApp
             switch (tableName)
             {
                 case "Groups":
-                    for (int i = 0; i < grid.RowCount - 1; i++)
+                    using (var context = new UnitOfWork().GroupRep)
                     {
-                        uOW.GroupRep.UpdateGroup(new Group() { 
-                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                            Name = grid.Rows[i].Cells[1].Value.ToString() 
-                        });
+                        for (int i = 0; i < grid.RowCount - 1; i++)
+                        {
+                            context.UpdateGroup(new Group()
+                            {
+                                Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                                Name = grid.Rows[i].Cells[1].Value.ToString()
+                            });
+                        }
+                        affectedRows = context.Save();
                     }
-                    affectedRows = uOW.GroupRep.Save();
                     break;
 
                 case "Students":
-                    for (int i = 0; i < grid.RowCount - 1; i++)
+                    using (var context = new UnitOfWork().StudentRep)
                     {
-                        uOW.StudentRep.UpdateStudent(new Student()
+                        for (int i = 0; i < grid.RowCount - 1; i++)
                         {
-                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                            FirstName = grid.Rows[i].Cells[1].Value.ToString(),
-                            LastName = grid.Rows[i].Cells[2].Value.ToString(),
-                            Age = int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
-                            GroupId = GetIdFromString(grid.Rows[i].Cells[4].Value.ToString())
-                        });
+                            context.UpdateStudent(new Student()
+                            {
+                                Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                                FirstName = grid.Rows[i].Cells[1].Value.ToString(),
+                                LastName = grid.Rows[i].Cells[2].Value.ToString(),
+                                Age = int.Parse(grid.Rows[i].Cells[3].Value.ToString()),
+                                GroupId = GetIdFromString(grid.Rows[i].Cells[4].Value.ToString())
+                            });
+                        }
+                        affectedRows = context.Save(); 
                     }
-                    affectedRows = uOW.StudentRep.Save();
                     break;
 
                 case "Subjects":
-                    for (int i = 0; i < grid.RowCount - 1; i++)
+                    using (var context = new UnitOfWork().SubjectRep)
                     {
-                        uOW.SubjectRep.UpdateSubject(new Subject() {
-                            Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
-                            Name = grid.Rows[i].Cells[1].Value.ToString() 
-                        });
+                        for (int i = 0; i < grid.RowCount - 1; i++)
+                        {
+                            context.UpdateSubject(new Subject()
+                            {
+                                Id = int.Parse(grid.Rows[i].Cells[0].Value.ToString()),
+                                Name = grid.Rows[i].Cells[1].Value.ToString()
+                            });
+                        }
+                        affectedRows = context.Save(); 
                     }
-                    affectedRows = uOW.SubjectRep.Save();
                     break;
 
                 default:
