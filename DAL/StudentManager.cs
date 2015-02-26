@@ -27,7 +27,7 @@ namespace DAL
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 Age = item.Age,
-                GroupName = item.Group.Name
+                GroupId = item.GroupId
             });
             return list.ToList();
         }
