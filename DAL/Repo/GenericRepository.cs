@@ -20,6 +20,14 @@ namespace DAL.Repo
             this.dbSet = context.Set<TEntity>();
         }
 
+        public virtual IQueryable<TEntity> All
+        {
+            get
+            {
+                return dbSet;
+            }
+        }
+
         public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

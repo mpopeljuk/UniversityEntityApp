@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Interfaces
 {
     public interface ISubjectManager 
     {
         IEnumerable<SubjectDTO> GetSubjects();
-        Subject GetSubjectByID(int subjectId);
-        void InsertSubject(Subject subject);
+        SubjectDTO GetSubjectByID(int subjectId);
+        Subject InsertSubject(Subject subject);
         void DeleteSubject(int subjectId);
-        void UpdateSubject(Subject subject);
+        Subject UpdateSubject(Subject subject);
     }
 }

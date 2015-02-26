@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Interfaces;
 using DAL;
 using DBModels;
 using System;
@@ -18,17 +19,29 @@ namespace BLL.Implements
 
         public IEnumerable<SubjectDTO> GetSubjects()
         {
-            throw new NotImplementedException();
+            var list = uOW.SubjectRep.Get().Select(item => new SubjectDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
+
+            return list.ToList();
         }
 
-        public Subject GetSubjectByID(int subjectId)
+        public SubjectDTO GetSubjectByID(int subjectId)
         {
-            throw new NotImplementedException();
+            Subject item = uOW.SubjectRep.GetByID(subjectId);
+            return new SubjectDTO() {
+                Id = item.Id,
+                Name = item.Name
+            };
         }
 
-        public void InsertSubject(Subject subject)
+        public Subject InsertSubject(Subject subject)
         {
-            throw new NotImplementedException();
+            uOW.SubjectRep.Insert(subject);
+            uOW.Save();
+            return subject;
         }
 
         public void DeleteSubject(int subjectId)
@@ -36,7 +49,7 @@ namespace BLL.Implements
             throw new NotImplementedException();
         }
 
-        public void UpdateSubject(Subject subject)
+        public Subject UpdateSubject(Subject subject)
         {
             throw new NotImplementedException();
         }

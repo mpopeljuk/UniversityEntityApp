@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
+using BLL.Interfaces;
 
 namespace BLL.Implements
 {
@@ -18,15 +19,29 @@ namespace BLL.Implements
 
         public IEnumerable<StudentDTO> GetStudents()
         {
-            throw new NotImplementedException();
+            var list = uOW.StudentRep.Get().Select(item => new StudentDTO() { 
+            FirstName = item.FirstName,
+            LastName = item.LastName,
+            Age = item.Age,
+            GroupId = item.GroupId
+            });
+
+            return list.ToList();
         }
 
-        public Student GetStudentByID(int studentId)
+        public StudentDTO GetStudentByID(int studentId)
         {
-            throw new NotImplementedException();
+            Student item = uOW.StudentRep.GetByID(studentId);
+            return new StudentDTO()
+            {
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Age = item.Age,
+                GroupId = item.GroupId
+            };
         }
 
-        public void InsertStudent(Student student)
+        public Student InsertStudent(Student student)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +51,7 @@ namespace BLL.Implements
             throw new NotImplementedException();
         }
 
-        public void UpdateStudent(Student student)
+        public Student UpdateStudent(Student student)
         {
             throw new NotImplementedException();
         }

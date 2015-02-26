@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Interfaces
 {
     public interface IStudentManager 
     {
         IEnumerable<StudentDTO> GetStudents();
-        Student GetStudentByID(int studentId);
-        void InsertStudent(Student student);
+        StudentDTO GetStudentByID(int studentId);
+        Student InsertStudent(Student student);
         void DeleteStudent(int studentId);
-        void UpdateStudent(Student student);
+        Student UpdateStudent(Student student);
     }
 }

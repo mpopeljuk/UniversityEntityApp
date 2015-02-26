@@ -1,0 +1,19 @@
+﻿@model IEnumerable<BLL.DTO.StudentDTO>
+
+<div>
+    <h1>Our students</h1>
+    <div>
+        <ul>
+            @foreach (var item in @Model)
+            {
+                <li>
+                    <span>@item.FirstName | </span>
+                    <span>@item.LastName | </span>
+                    <span>@item.Age | </span>
+                    <span>@item.GroupId | </span>
+                    <input type="hidden" value="@item.Id" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>

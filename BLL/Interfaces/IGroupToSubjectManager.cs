@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Interfaces
 {
     public interface IGroupToSubjectManager 
     {
         IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId);
         IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId);
-        void InsertGroupToSubject(GroupToSubject gts);
+        GroupToSubject InsertGroupToSubject(GroupToSubject gts);
         void DeleteGroupToSubject(int groupId, int subjectId);
     }
 }

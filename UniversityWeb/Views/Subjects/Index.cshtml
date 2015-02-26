@@ -1,0 +1,16 @@
+﻿@model IEnumerable<BLL.DTO.SubjectDTO>
+
+<div>
+    <h1>Our subjects</h1>
+    <div>
+        <ul>
+            @foreach (var subject in @Model)
+            {
+                <li>
+                    <span>@subject.Name</span>
+                    <input type="hidden" value="@subject.Id" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>

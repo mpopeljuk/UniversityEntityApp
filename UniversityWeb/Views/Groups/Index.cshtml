@@ -1,0 +1,17 @@
+﻿@model IEnumerable<BLL.DTO.GroupDTO>
+
+<div>
+    <h1>Our groups</h1>
+    <div>
+        <ul>
+            @foreach (var group in Model)
+            {
+                <li>
+                    <span>@group.Name</span>
+                    <input type="hidden" value="@group.Id" />
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+

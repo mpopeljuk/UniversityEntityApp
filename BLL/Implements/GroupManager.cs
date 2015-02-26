@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL.Interfaces;
 using DAL;
 using DBModels;
 using System;
@@ -19,17 +20,29 @@ namespace BLL.Implements
 
         public IEnumerable<GroupDTO> GetGroups()
         {
-            throw new NotImplementedException();
+            var list = uOW.GroupRep.Get().Select(item => new GroupDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            });
+            return list.ToList();
         }
 
-        public Group GetGroupByID(int groupId)
+        public GroupDTO GetGroupByID(int groupId)
         {
-            throw new NotImplementedException();
+            Group item = uOW.GroupRep.GetByID(groupId);
+            return new GroupDTO()
+            {
+                Id = item.Id,
+                Name = item.Name
+            };
         }
 
-        public void InsertGroup(Group group)
+        public Group InsertGroup(Group group)
         {
-            throw new NotImplementedException();
+            uOW.GroupRep.Insert(group);
+            uOW.Save();
+            return group;
         }
 
         public void DeleteGroup(int groupId)
@@ -37,7 +50,7 @@ namespace BLL.Implements
             throw new NotImplementedException();
         }
 
-        public void UpdateGroup(Group group)
+        public Group UpdateGroup(Group group)
         {
             throw new NotImplementedException();
         }
