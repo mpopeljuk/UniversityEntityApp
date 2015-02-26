@@ -7,56 +7,38 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Implements
 {
-    public class SubjectManager : ISubjectManager, IDisposable
+    public class SubjectManager : BaseManager, ISubjectManager
     {
-        private UniversityContext context;
-
-        public SubjectManager(UniversityContext _context)
+        public SubjectManager(UnitOfWork uOW)
+            : base(uOW)
         {
-            context = _context;
-        }
-
-        public IEnumerable<NameIdPairDTO> GetNameIdPair()
-        {
-            var list = context.Subjects.Select(item => new NameIdPairDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            });
-            return list.ToList();
         }
 
         public IEnumerable<SubjectDTO> GetSubjects()
         {
-            var list = context.Subjects.Select(item => new SubjectDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            });
-            return list.ToList();
+            throw new NotImplementedException();
         }
 
-        public DBModels.Subject GetSubjectByID(int subjectId)
+        public Subject GetSubjectByID(int subjectId)
         {
-            return context.Subjects.Find(subjectId);
+            throw new NotImplementedException();
         }
 
-        public void InsertSubject(DBModels.Subject subject)
+        public void InsertSubject(Subject subject)
         {
-            context.Subjects.Add(subject);
+            throw new NotImplementedException();
         }
 
         public void DeleteSubject(int subjectId)
         {
-            Subject subject = context.Subjects.Find(subjectId);
-            context.Subjects.Remove(subject);
+            throw new NotImplementedException();
         }
 
-        public void UpdateSubject(DBModels.Subject subject)
+        public void UpdateSubject(Subject subject)
         {
-            context.Entry(subject).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BLL.DTO;
+using BLL;
 using DAL;
 using DBModels;
 using System;
@@ -7,48 +8,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Implements
 {
-    public class GroupToSubjectManager : IGroupToSubjectManager, IDisposable
+    public class GroupToSubjectManager : BaseManager, IGroupToSubjectManager
     {
-        private UniversityContext context;
-
-        public GroupToSubjectManager(UniversityContext _context)
+        public GroupToSubjectManager(UnitOfWork uOW)
+            : base(uOW)
         {
-            context = _context;
         }
 
         public IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId)
         {
-            var list = context.GroupToSubjects.Where(g => g.GroupId == groupId).Select(item => new GroupToSubjectDTO()
-            {
-                Id = item.SubjectId,
-                Name = item.Subject.Name
-            });
-            return list.ToList();
+            throw new NotImplementedException();
         }
 
         public IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId)
         {
-            var list = context.GroupToSubjects.Where(g => g.SubjectId == subjectId).Select(item => new GroupToSubjectDTO()
-            {
-                Id = item.GroupId,
-                Name = item.Group.Name
-            });
-            return list.ToList();
+            throw new NotImplementedException();
         }
 
-        public void InsertGroupToSubject(DBModels.GroupToSubject gts)
+        public void InsertGroupToSubject(GroupToSubject gts)
         {
-            context.GroupToSubjects.Add(gts);
+            throw new NotImplementedException();
         }
 
         public void DeleteGroupToSubject(int groupId, int subjectId)
         {
-            var query = from row in context.GroupToSubjects
-                        where row.GroupId == groupId && row.SubjectId == subjectId
-                        select row;
-            context.GroupToSubjects.Remove( query.FirstOrDefault() );
+            throw new NotImplementedException();
         }
     }
 }

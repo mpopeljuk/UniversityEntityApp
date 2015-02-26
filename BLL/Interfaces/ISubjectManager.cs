@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public interface ISubjectManager : IDisposable
+    public interface ISubjectManager 
     {
         IEnumerable<SubjectDTO> GetSubjects();
         Subject GetSubjectByID(int subjectId);

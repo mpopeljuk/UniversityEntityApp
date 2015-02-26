@@ -14,27 +14,28 @@ namespace DAL
     {
         private UniversityContext context;
 
-        private GenericRepository<Group> groupRep;
-        private GenericRepository<Subject> subjectRep;
-        private GenericRepository<Student> studentRep;
-        private GenericRepository<GroupToSubject> gtsRep;
+        private GenericRepository<Group> groupRepo;
+        private GenericRepository<Subject> subjectRepo;
+        private GenericRepository<Student> studentRepo;
+        //private GenericRepository<GroupToSubject> gtsRep;
 
 
         public UnitOfWork()
         {
             context = new UniversityContext();
 
-            groupRep = new GenericRepository<Group>(context);
-            subjectRep = new GenericRepository<Subject>(context);
-            studentRep = new GenericRepository<Student>(context);
-            gtsRep = new GenericRepository<GroupToSubject>(context);
+            groupRepo = new GenericRepository<Group>(context);
+            subjectRepo = new GenericRepository<Subject>(context);
+            studentRepo = new GenericRepository<Student>(context);
+            //gtsRep = new GenericRepository<GroupToSubject>(context);
         }
 
         public GenericRepository<Group> GroupRep
         {
             get
             {
-                return groupRep;
+                if (groupRepo == null) groupRepo = new GenericRepository<Group>(context);
+                return groupRepo;
             }
         }
 
@@ -42,7 +43,8 @@ namespace DAL
         {
             get
             {
-                return subjectRep;
+                if (subjectRepo == null) subjectRepo = new GenericRepository<Subject>(context);
+                return subjectRepo;
             }
         }
 
@@ -50,17 +52,18 @@ namespace DAL
         {
             get
             {
-                return studentRep;
+                if (studentRepo == null) studentRepo = new GenericRepository<Student>(context);
+                return studentRepo;
             }
         }
 
-        public GenericRepository<GroupToSubject> GtsRep
+        /*public GenericRepository<GroupToSubject> GtsRep
         {
             get
             {
                 return gtsRep;
             }
-        }
+        }*/
 
         public void Save()
         {

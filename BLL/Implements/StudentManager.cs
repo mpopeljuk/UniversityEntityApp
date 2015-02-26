@@ -7,49 +7,38 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 
-namespace BLL
+namespace BLL.Implements
 {
-    public class StudentManager : IStudentManager, IDisposable
+    public class StudentManager : BaseManager, IStudentManager
     {
-        private UniversityContext context;
-
-        public StudentManager(UniversityContext _context)
+        public StudentManager(UnitOfWork uOW)
+            : base(uOW)
         {
-            context = _context;
         }
 
         public IEnumerable<StudentDTO> GetStudents()
         {
-            var list = context.Students.Select(item => new StudentDTO()
-            {
-                Id = item.Id,
-                FirstName = item.FirstName,
-                LastName = item.LastName,
-                Age = item.Age,
-                GroupId = item.GroupId
-            });
-            return list.ToList();
+            throw new NotImplementedException();
         }
 
-        Student IStudentManager.GetStudentByID(int studentId)
+        public Student GetStudentByID(int studentId)
         {
-            return context.Students.Find(studentId);
+            throw new NotImplementedException();
         }
 
         public void InsertStudent(Student student)
         {
-            context.Students.Add(student);
+            throw new NotImplementedException();
         }
 
         public void DeleteStudent(int studentId)
         {
-            Student student = context.Students.Find(studentId);
-            context.Students.Remove(student);
+            throw new NotImplementedException();
         }
 
         public void UpdateStudent(Student student)
         {
-            context.Entry(student).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
     }
 }

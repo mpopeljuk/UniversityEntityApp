@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public interface IGroupManager : IDisposable
+    public interface IGroupManager 
     {
         IEnumerable<GroupDTO> GetGroups();
         Group GetGroupByID(int groupId);

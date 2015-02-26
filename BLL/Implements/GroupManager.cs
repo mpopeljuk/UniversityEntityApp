@@ -7,55 +7,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace BLL.Implements
 {
-    public class GroupManager : IGroupManager, IDisposable
+    public class GroupManager : BaseManager, IGroupManager
     {
-        private UniversityContext context;
 
-        public GroupManager(UniversityContext _context)
+        public GroupManager(UnitOfWork uOW)
+            : base(uOW)
         {
-            context = _context;
-        }
-
-        public IEnumerable<NameIdPairDTO> GetNameIdPair()
-        {
-            var list = context.Groups.Select(item => new NameIdPairDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            });
-            return list.ToList();
         }
 
         public IEnumerable<GroupDTO> GetGroups()
         {
-            var list = context.Groups.Select(item => new GroupDTO() {
-                Id = item.Id,
-                Name = item.Name
-                });
-            return list.ToList();
+            throw new NotImplementedException();
         }
 
-        public DBModels.Group GetGroupByID(int groupId)
+        public Group GetGroupByID(int groupId)
         {
-            return context.Groups.Find(groupId);
+            throw new NotImplementedException();
         }
 
-        public void InsertGroup(DBModels.Group group)
+        public void InsertGroup(Group group)
         {
-            context.Groups.Add(group);
+            throw new NotImplementedException();
         }
 
         public void DeleteGroup(int groupId)
         {
-            Group group = context.Groups.Find(groupId);
-            context.Groups.Remove(group);
+            throw new NotImplementedException();
         }
 
-        public void UpdateGroup(DBModels.Group group)
+        public void UpdateGroup(Group group)
         {
-            context.Entry(group).State = EntityState.Modified;
+            throw new NotImplementedException();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    public interface IStudentManager : IDisposable
+    public interface IStudentManager 
     {
         IEnumerable<StudentDTO> GetStudents();
         Student GetStudentByID(int studentId);

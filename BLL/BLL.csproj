@@ -44,6 +44,7 @@
     <Compile Include="DTO\NameIdPairDTO.cs" />
     <Compile Include="DTO\StudentDTO.cs" />
     <Compile Include="DTO\SubjectDTO.cs" />
+    <Compile Include="Implements\BaseManager.cs" />
     <Compile Include="Implements\GroupManager.cs" />
     <Compile Include="Implements\GroupToSubjectManager.cs" />
     <Compile Include="Implements\StudentManager.cs" />
