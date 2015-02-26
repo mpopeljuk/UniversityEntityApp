@@ -15,3 +15,10 @@ select,
 textarea {
     max-width: 280px;
 }
+table, tr, td, th, tbody, thead{
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+td, th{
+    padding: 3px;
+}

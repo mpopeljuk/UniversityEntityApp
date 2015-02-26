@@ -1,16 +1,28 @@
 ﻿@model IEnumerable<BLL.DTO.SubjectDTO>
-
+@{ViewBag.Title = "Subjects";}
 <div>
     <h1>Our subjects</h1>
     <div>
-        <ul>
-            @foreach (var subject in @Model)
-            {
-                <li>
-                    <span>@subject.Name</span>
-                    <input type="hidden" value="@subject.Id" />
-                </li>
-            }
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Add new subject", "AddSubject")
     </div>
 </div>

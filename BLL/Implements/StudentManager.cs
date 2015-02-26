@@ -43,7 +43,9 @@ namespace BLL.Implements
 
         public Student InsertStudent(Student student)
         {
-            throw new NotImplementedException();
+            uOW.StudentRep.Insert(student);
+            uOW.Save();
+            return student;
         }
 
         public void DeleteStudent(int studentId)

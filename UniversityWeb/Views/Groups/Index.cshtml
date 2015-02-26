@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<BLL.DTO.GroupDTO>
-
+@{ViewBag.Title = "Groups";}
 <div>
     <h1>Our groups</h1>
     <div>
-        <ul>
-            @foreach (var group in Model)
-            {
-                <li>
-                    <span>@group.Name</span>
-                    <input type="hidden" value="@group.Id" />
-                </li>
-            }
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in Model)
+                {
+                    <tr>
+                        <td>@group.Name</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = group.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = group.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.Partial("AddGroupButton")
     </div>
 </div>
 

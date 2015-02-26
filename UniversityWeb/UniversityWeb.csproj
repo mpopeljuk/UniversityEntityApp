@@ -164,6 +164,10 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
+    <Content Include="Views\Groups\AddGroup.cshtml" />
+    <Content Include="Views\Groups\AddGroupButton.cshtml" />
+    <Content Include="Views\Students\AddStudent.cshtml" />
+    <Content Include="Views\Subjects\AddSubject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

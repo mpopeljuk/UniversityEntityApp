@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DAL;
+using DBModels;
 
 namespace UniversityWeb.Controllers
 {
@@ -23,6 +24,19 @@ namespace UniversityWeb.Controllers
         {
             var groups = mgr.GetGroups();
             return View(groups);
+        }
+
+        [HttpGet]
+        public ActionResult AddGroup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddGroup(Group group)
+        {
+            mgr.InsertGroup(group);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,19 +1,34 @@
 ﻿@model IEnumerable<BLL.DTO.StudentDTO>
-
+@{ViewBag.Title = "Students";}
 <div>
     <h1>Our students</h1>
     <div>
-        <ul>
-            @foreach (var item in @Model)
-            {
-                <li>
-                    <span>@item.FirstName | </span>
-                    <span>@item.LastName | </span>
-                    <span>@item.Age | </span>
-                    <span>@item.GroupId | </span>
-                    <input type="hidden" value="@item.Id" />
-                </li>
-            }
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                    <th>Group ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Age</td>
+                        <td>@item.GroupId</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Html.ActionLink("Add new student", "AddStudent")
     </div>
 </div>

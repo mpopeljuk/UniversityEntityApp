@@ -1,6 +1,7 @@
 ﻿using BLL.Implements;
 using BLL.Interfaces;
 using DAL;
+using DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,19 @@ namespace UniversityWeb.Controllers
         {
             var model = mgr.GetStudents();
             return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult AddStudent()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddStudent(Student student)
+        {
+            mgr.InsertStudent(student);
+            return RedirectToAction("Index");
         }
     }
 }
