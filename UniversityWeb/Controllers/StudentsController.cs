@@ -7,34 +7,38 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniversityWeb.Models.Students;
 
 namespace UniversityWeb.Controllers
 {
     public class StudentsController : Controller
     {
-        IStudentManager mgr;
+        IStudentManager studentManager;
+        IGroupManager groupManager;
 
         public StudentsController()
         {
-            mgr = new StudentManager(new UnitOfWork());
+            studentManager = new StudentManager(new UnitOfWork());
+            groupManager = new GroupManager(new UnitOfWork());
         }
 
         public ActionResult Index()
         {
-            var model = mgr.GetStudents();
+            var model = studentManager.GetStudents();
             return View(model);
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            StudentAddModel model = new StudentAddModel { Groups = groupManager.GetGroups() };
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Add(Student student)
         {
-            mgr.InsertStudent(student);
+            studentManager.InsertStudent(student);
             return RedirectToAction("Index");
         }
 
@@ -46,7 +50,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int studentId = id.Value;
-            var model = mgr.GetRawStudentByID(studentId);
+            var model = studentManager.GetRawStudentByID(studentId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -58,7 +62,7 @@ namespace UniversityWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            mgr.DeleteStudent(id);
+            studentManager.DeleteStudent(id);
             return RedirectToAction("Index");
         }
 
@@ -70,18 +74,26 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int studentId = id.Value;
-            var model = mgr.GetRawStudentByID(studentId);
-            if (model == null)
+            var student = studentManager.GetRawStudentByID(studentId);
+            if (student == null)
             {
                 return HttpNotFound();
             }
+            var model = new StudentEditModel
+            {
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                Age = student.Age,
+                GroupId = student.GroupId,
+                Groups = groupManager.GetGroups()
+            };
             return View(model);
         }
         
         [HttpPost]
         public ActionResult Edit(Student student)
         {
-            mgr.UpdateStudent(student);
+            studentManager.UpdateStudent(student);
             return RedirectToAction("Index");
         }
     }

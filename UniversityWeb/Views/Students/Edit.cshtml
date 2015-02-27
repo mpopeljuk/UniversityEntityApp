@@ -1,4 +1,4 @@
-﻿@model DBModels.Student
+﻿@model UniversityWeb.Models.Students.StudentEditModel
 
 @using (Html.BeginForm())
 {
@@ -35,10 +35,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.GroupId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label for="GroupId">Group:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.GroupId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GroupId, "", new { @class = "text-danger" })
+                <select name="GroupId">
+                    @foreach (var group in Model.Groups)
+                    {
+                        if (@group.Id == Model.GroupId)
+                        {
+                            <option value="@group.Id" selected>@group.Name</option>
+                        }
+                        <option value="@group.Id">@group.Name</option>
+                    }
+                </select>
             </div>
         </div>
 
