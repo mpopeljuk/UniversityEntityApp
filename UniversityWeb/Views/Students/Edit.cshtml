@@ -43,6 +43,7 @@
                         if (@group.Id == Model.GroupId)
                         {
                             <option value="@group.Id" selected>@group.Name</option>
+                            continue;
                         }
                         <option value="@group.Id">@group.Name</option>
                     }
