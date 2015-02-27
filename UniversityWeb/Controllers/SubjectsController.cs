@@ -37,5 +37,52 @@ namespace UniversityWeb.Controllers
             mgr.InsertSubject(subject);
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            int subjectId = id.Value;
+            var model = mgr.GetRawSubjectByID(subjectId);
+            if (model == null)
+            {
+                HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            mgr.DeleteSubject(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            int subjectId = id.Value;
+            var model = mgr.GetRawSubjectByID(subjectId);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Subject subject)
+        {
+            mgr.UpdateSubject(subject);
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -9,7 +9,7 @@
                     <th>First name</th>
                     <th>Last name</th>
                     <th>Age</th>
-                    <th>Group ID</th>
+                    <th>Group</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -20,7 +20,7 @@
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.Age</td>
-                        <td>@item.GroupId</td>
+                        <td>@item.GroupName</td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id })

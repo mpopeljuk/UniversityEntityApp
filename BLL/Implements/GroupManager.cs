@@ -52,13 +52,15 @@ namespace BLL.Implements
 
         public void DeleteGroup(int groupId)
         {
-            uOW.GroupRep.Delete( uOW.GroupRep.GetByID(groupId) );
+            uOW.GroupRep.Delete(uOW.GroupRep.GetByID(groupId));
             uOW.Save();
         }
 
         public Group UpdateGroup(Group group)
         {
-            throw new NotImplementedException();
+            uOW.GroupRep.Update(group);
+            uOW.Save();
+            return group;
         }
     }
 }

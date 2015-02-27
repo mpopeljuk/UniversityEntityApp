@@ -19,11 +19,13 @@ namespace BLL.Implements
 
         public IEnumerable<StudentDTO> GetStudents()
         {
-            var list = uOW.StudentRep.Get().Select(item => new StudentDTO() { 
-            FirstName = item.FirstName,
-            LastName = item.LastName,
-            Age = item.Age,
-            GroupId = item.GroupId
+            var list = uOW.StudentRep.Get().Select(item => new StudentDTO()
+            {
+                Id = item.Id,
+                FirstName = item.FirstName,
+                LastName = item.LastName,
+                Age = item.Age,
+                GroupName = item.Group.Name
             });
 
             return list.ToList();
@@ -37,7 +39,7 @@ namespace BLL.Implements
                 FirstName = item.FirstName,
                 LastName = item.LastName,
                 Age = item.Age,
-                GroupId = item.GroupId
+                GroupName = item.Group.Name
             };
         }
 
@@ -55,12 +57,15 @@ namespace BLL.Implements
 
         public void DeleteStudent(int studentId)
         {
-            uOW.StudentRep.Delete( uOW.StudentRep.GetByID(studentId) );
+            uOW.StudentRep.Delete(uOW.StudentRep.GetByID(studentId));
+            uOW.Save();
         }
 
         public Student UpdateStudent(Student student)
         {
-            throw new NotImplementedException();
+            uOW.StudentRep.Update(student);
+            uOW.Save();
+            return student;
         }
     }
 }

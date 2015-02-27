@@ -57,7 +57,9 @@ namespace BLL.Implements
 
         public Subject UpdateSubject(Subject subject)
         {
-            throw new NotImplementedException();
+            uOW.SubjectRep.Update(subject);
+            uOW.Save();
+            return subject;
         }
     }
 }

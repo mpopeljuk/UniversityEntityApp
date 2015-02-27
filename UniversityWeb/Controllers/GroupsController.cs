@@ -20,11 +20,10 @@ namespace UniversityWeb.Controllers
             mgr = new GroupManager(new UnitOfWork());
         }
 
-        // GET: Groups
         public ActionResult Index()
         {
-            var groups = mgr.GetGroups();
-            return View(groups);
+            var model = mgr.GetGroups();
+            return View(model);
         }
 
         [HttpGet]
@@ -43,13 +42,17 @@ namespace UniversityWeb.Controllers
         [HttpGet]
         public ActionResult Delete(int? id)
         {
-            int groupId = id ?? -1;
-            var group = mgr.GetRawGroupByID(groupId);
-            if (group == null)
+            if (!id.HasValue)
             {
                 return HttpNotFound();
             }
-            return View(group);
+            int groupId = id.Value;
+            var model = mgr.GetRawGroupByID(groupId);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -58,6 +61,32 @@ namespace UniversityWeb.Controllers
         {
             mgr.DeleteGroup(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            int groupId = id.Value;
+            var model = mgr.GetRawGroupByID(groupId);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Group group)
+        {
+            if (ModelState.IsValid)
+            {
+                mgr.UpdateGroup(group);
+                return RedirectToAction("Index");
+            }
+            return View(group);
         }
     }
 }
