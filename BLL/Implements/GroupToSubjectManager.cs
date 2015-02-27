@@ -20,27 +20,41 @@ namespace BLL.Implements
 
         public IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId)
         {
-            throw new NotImplementedException();
+            var list = uOW.GroupToSubjectRep.GetSubjectsForGroup(groupId)
+                .Select(item => new GroupToSubjectDTO() { 
+                Id = item.SubjectId,
+                Name = item.Subject.Name
+                });
+            return list;
         }
 
         public IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId)
         {
-            throw new NotImplementedException();
+            var list = uOW.GroupToSubjectRep.GetGroupsForSubject(subjectId)
+                .Select(item => new GroupToSubjectDTO()
+                {
+                    Id = item.SubjectId,
+                    Name = item.Subject.Name
+                });
+            return list;
         }
 
-        public GroupToSubject GetRawGtsByID(int groupId, int subjectId)
+        public GroupToSubject GetGtsByID(int groupId, int subjectId)
         {
-            throw new NotImplementedException();
+            return uOW.GroupToSubjectRep.GetById(groupId, subjectId);
         }
 
         public GroupToSubject InsertGroupToSubject(GroupToSubject gts)
         {
-            throw new NotImplementedException();
+            uOW.GroupToSubjectRep.Insert(gts);
+            uOW.Save();
+            return gts;
         }
 
         public void DeleteGroupToSubject(int groupId, int subjectId)
         {
-            throw new NotImplementedException();
+            uOW.GroupToSubjectRep.Delete(groupId, subjectId);
+            uOW.Save();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace DAL
         private GenericRepository<Group> groupRepo;
         private GenericRepository<Subject> subjectRepo;
         private GenericRepository<Student> studentRepo;
-        //private GenericRepository<GroupToSubject> gtsRep;
+        private GroupToSubjectRepository gtsRep;
 
 
         public UnitOfWork()
@@ -27,7 +27,7 @@ namespace DAL
             groupRepo = new GenericRepository<Group>(context);
             subjectRepo = new GenericRepository<Subject>(context);
             studentRepo = new GenericRepository<Student>(context);
-            //gtsRep = new GenericRepository<GroupToSubject>(context);
+            gtsRep = new GroupToSubjectRepository(context);
         }
 
         public GenericRepository<Group> GroupRep
@@ -57,13 +57,13 @@ namespace DAL
             }
         }
 
-        /*public GenericRepository<GroupToSubject> GtsRep
+        public GroupToSubjectRepository GroupToSubjectRep
         {
             get
             {
                 return gtsRep;
             }
-        }*/
+        }
 
         public void Save()
         {

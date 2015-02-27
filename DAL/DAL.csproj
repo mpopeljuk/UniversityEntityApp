@@ -57,6 +57,7 @@
       <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repo\GroupToSubjectRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
     <Compile Include="UniversityContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

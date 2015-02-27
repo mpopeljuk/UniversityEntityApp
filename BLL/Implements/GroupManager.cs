@@ -25,7 +25,7 @@ namespace BLL.Implements
                 Id = item.Id,
                 Name = item.Name
             });
-            return list.ToList();
+            return list;
         }
 
         public GroupDTO GetGroupByID(int groupId)
