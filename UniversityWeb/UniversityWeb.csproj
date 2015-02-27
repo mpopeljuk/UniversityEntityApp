@@ -164,10 +164,11 @@
     <Content Include="Views\Groups\Index.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
-    <Content Include="Views\Groups\AddGroup.cshtml" />
+    <None Include="Views\Groups\Add.cshtml" />
     <Content Include="Views\Groups\AddGroupButton.cshtml" />
-    <Content Include="Views\Students\AddStudent.cshtml" />
-    <Content Include="Views\Subjects\AddSubject.cshtml" />
+    <Content Include="Views\Students\Add.cshtml" />
+    <Content Include="Views\Subjects\Add.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

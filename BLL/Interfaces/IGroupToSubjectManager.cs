@@ -12,6 +12,7 @@ namespace BLL.Interfaces
     {
         IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId);
         IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId);
+        GroupToSubject GetRawGtsByID(int groupId, int subjectId);
         GroupToSubject InsertGroupToSubject(GroupToSubject gts);
         void DeleteGroupToSubject(int groupId, int subjectId);
     }

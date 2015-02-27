@@ -28,6 +28,11 @@ namespace BLL.Implements
             throw new NotImplementedException();
         }
 
+        public GroupToSubject GetRawGtsByID(int groupId, int subjectId)
+        {
+            throw new NotImplementedException();
+        }
+
         public GroupToSubject InsertGroupToSubject(GroupToSubject gts)
         {
             throw new NotImplementedException();

@@ -12,6 +12,7 @@ namespace BLL.Interfaces
     {
         IEnumerable<SubjectDTO> GetSubjects();
         SubjectDTO GetSubjectByID(int subjectId);
+        Subject GetRawSubjectByID(int subjectId);
         Subject InsertSubject(Subject subject);
         void DeleteSubject(int subjectId);
         Subject UpdateSubject(Subject subject);

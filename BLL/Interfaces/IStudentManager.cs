@@ -12,6 +12,7 @@ namespace BLL.Interfaces
     {
         IEnumerable<StudentDTO> GetStudents();
         StudentDTO GetStudentByID(int studentId);
+        Student GetRawStudentByID(int studentId);
         Student InsertStudent(Student student);
         void DeleteStudent(int studentId);
         Student UpdateStudent(Student student);

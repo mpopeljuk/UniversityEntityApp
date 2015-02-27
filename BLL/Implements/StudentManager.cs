@@ -41,6 +41,11 @@ namespace BLL.Implements
             };
         }
 
+        public Student GetRawStudentByID(int studentId)
+        {
+            return uOW.StudentRep.GetByID(studentId);
+        }
+
         public Student InsertStudent(Student student)
         {
             uOW.StudentRep.Insert(student);
@@ -50,7 +55,7 @@ namespace BLL.Implements
 
         public void DeleteStudent(int studentId)
         {
-            throw new NotImplementedException();
+            uOW.StudentRep.Delete( uOW.StudentRep.GetByID(studentId) );
         }
 
         public Student UpdateStudent(Student student)

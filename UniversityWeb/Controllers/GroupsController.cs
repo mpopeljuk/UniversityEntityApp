@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using DAL;
 using DBModels;
+using System.Net;
 
 namespace UniversityWeb.Controllers
 {
@@ -27,15 +28,35 @@ namespace UniversityWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddGroup()
+        public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddGroup(Group group)
+        public ActionResult Add(Group group)
         {
             mgr.InsertGroup(group);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            int groupId = id ?? -1;
+            var group = mgr.GetRawGroupByID(groupId);
+            if (group == null)
+            {
+                return HttpNotFound();
+            }
+            return View(group);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            mgr.DeleteGroup(id);
             return RedirectToAction("Index");
         }
     }

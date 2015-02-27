@@ -37,6 +37,11 @@ namespace BLL.Implements
             };
         }
 
+        public Subject GetRawSubjectByID(int subjectId)
+        {
+            return uOW.SubjectRep.GetByID(subjectId);
+        }
+
         public Subject InsertSubject(Subject subject)
         {
             uOW.SubjectRep.Insert(subject);
@@ -46,7 +51,8 @@ namespace BLL.Implements
 
         public void DeleteSubject(int subjectId)
         {
-            throw new NotImplementedException();
+            uOW.SubjectRep.Delete( uOW.SubjectRep.GetByID(subjectId) );
+            uOW.Save();
         }
 
         public Subject UpdateSubject(Subject subject)

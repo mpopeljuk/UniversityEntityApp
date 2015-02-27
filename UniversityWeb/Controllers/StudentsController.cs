@@ -26,13 +26,13 @@ namespace UniversityWeb.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddStudent()
+        public ActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddStudent(Student student)
+        public ActionResult Add(Student student)
         {
             mgr.InsertStudent(student);
             return RedirectToAction("Index");

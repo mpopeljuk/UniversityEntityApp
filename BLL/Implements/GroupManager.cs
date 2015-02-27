@@ -38,6 +38,11 @@ namespace BLL.Implements
             };
         }
 
+        public Group GetRawGroupByID(int groupId)
+        {
+            return uOW.GroupRep.GetByID(groupId);
+        }
+
         public Group InsertGroup(Group group)
         {
             uOW.GroupRep.Insert(group);
@@ -47,7 +52,8 @@ namespace BLL.Implements
 
         public void DeleteGroup(int groupId)
         {
-            throw new NotImplementedException();
+            uOW.GroupRep.Delete( uOW.GroupRep.GetByID(groupId) );
+            uOW.Save();
         }
 
         public Group UpdateGroup(Group group)
