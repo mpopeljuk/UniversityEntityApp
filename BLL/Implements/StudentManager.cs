@@ -28,7 +28,7 @@ namespace BLL.Implements
                 GroupName = item.Group.Name
             });
 
-            return list;
+            return list.ToList();
         }
 
         public StudentDTO GetStudentByID(int studentId)

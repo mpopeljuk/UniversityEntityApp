@@ -18,25 +18,26 @@ namespace BLL.Implements
         {
         }
 
-        public IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId)
+        public IEnumerable<GroupToSubject> GetSubjectsForGroup(int groupId)
         {
-            var list = uOW.GroupToSubjectRep.GetSubjectsForGroup(groupId)
-                .Select(item => new GroupToSubjectDTO() { 
+            var list = uOW.GroupToSubjectRep.GetSubjectsForGroup(groupId);
+            /*var result = list.Select(item => new GroupToSubjectDTO
+            { 
                 Id = item.SubjectId,
                 Name = item.Subject.Name
-                });
-            return list;
+                });*/
+            return list.ToList();
         }
 
-        public IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId)
+        public IEnumerable<GroupToSubject> GetGroupsForSubject(int subjectId)
         {
-            var list = uOW.GroupToSubjectRep.GetGroupsForSubject(subjectId)
-                .Select(item => new GroupToSubjectDTO()
+            var list = uOW.GroupToSubjectRep.GetGroupsForSubject(subjectId);
+                /*.Select(item => new GroupToSubjectDTO()
                 {
                     Id = item.SubjectId,
                     Name = item.Subject.Name
-                });
-            return list;
+                });*/
+            return list.ToList();
         }
 
         public GroupToSubject GetGtsByID(int groupId, int subjectId)

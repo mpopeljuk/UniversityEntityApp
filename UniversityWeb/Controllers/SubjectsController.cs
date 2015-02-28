@@ -7,21 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using UniversityWeb.Models.Subjects;
 
 namespace UniversityWeb.Controllers
 {
     public class SubjectsController : Controller
     {
-        ISubjectManager mgr;
+        ISubjectManager subjectManager;
+        IGroupToSubjectManager gtsManager;
 
         public SubjectsController()
         {
-            mgr = new SubjectManager(new UnitOfWork());
+            subjectManager = new SubjectManager(new UnitOfWork());
+            gtsManager = new GroupToSubjectManager(new UnitOfWork());
         }
 
         public ActionResult Index()
         {
-            var model = mgr.GetSubjects();
+            var model = subjectManager.GetSubjects();
             return View(model);
         }
 
@@ -34,7 +37,7 @@ namespace UniversityWeb.Controllers
         [HttpPost]
         public ActionResult Add(Subject subject)
         {
-            mgr.InsertSubject(subject);
+            subjectManager.InsertSubject(subject);
             return RedirectToAction("Index");
         }
 
@@ -46,7 +49,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int subjectId = id.Value;
-            var model = mgr.GetRawSubjectByID(subjectId);
+            var model = subjectManager.GetRawSubjectByID(subjectId);
             if (model == null)
             {
                 HttpNotFound();
@@ -58,7 +61,7 @@ namespace UniversityWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            mgr.DeleteSubject(id);
+            subjectManager.DeleteSubject(id);
             return RedirectToAction("Index");
         }
 
@@ -70,7 +73,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int subjectId = id.Value;
-            var model = mgr.GetRawSubjectByID(subjectId);
+            var model = subjectManager.GetRawSubjectByID(subjectId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -81,8 +84,26 @@ namespace UniversityWeb.Controllers
         [HttpPost]
         public ActionResult Edit(Subject subject)
         {
-            mgr.UpdateSubject(subject);
+            subjectManager.UpdateSubject(subject);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            int subjectId = id.Value;
+            Subject group = subjectManager.GetRawSubjectByID(subjectId);
+            var groupList = gtsManager.GetGroupsForSubject(subjectId);
+            SubjectDetailModel model = new SubjectDetailModel
+            {
+                Id = group.Id,
+                Name = group.Name,
+                Groups = groupList
+            };
+            return View(model);
         }
     }
 }

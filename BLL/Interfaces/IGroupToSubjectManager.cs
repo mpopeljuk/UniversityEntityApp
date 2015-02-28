@@ -10,8 +10,8 @@ namespace BLL.Interfaces
 {
     public interface IGroupToSubjectManager 
     {
-        IEnumerable<GroupToSubjectDTO> GetSubjectsForGroup(int groupId);
-        IEnumerable<GroupToSubjectDTO> GetGroupsForSubject(int subjectId);
+        IEnumerable<GroupToSubject> GetSubjectsForGroup(int groupId);
+        IEnumerable<GroupToSubject> GetGroupsForSubject(int subjectId);
         GroupToSubject GetGtsByID(int groupId, int subjectId);
         GroupToSubject InsertGroupToSubject(GroupToSubject gts);
         void DeleteGroupToSubject(int groupId, int subjectId);

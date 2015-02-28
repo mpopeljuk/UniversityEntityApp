@@ -25,7 +25,7 @@ namespace BLL.Implements
                 Name = item.Name
             });
 
-            return list;
+            return list.ToList();
         }
 
         public SubjectDTO GetSubjectByID(int subjectId)

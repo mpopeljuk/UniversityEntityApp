@@ -8,21 +8,25 @@ using System.Web.Mvc;
 using DAL;
 using DBModels;
 using System.Net;
+using BLL.DTO;
+using UniversityWeb.Models.Groups;
 
 namespace UniversityWeb.Controllers
 {
     public class GroupsController : Controller
     {
-        public IGroupManager mgr;
+        public IGroupManager groupManager;
+        public IGroupToSubjectManager gtsManager;
 
         public GroupsController()
         {
-            mgr = new GroupManager(new UnitOfWork());
+            groupManager = new GroupManager(new UnitOfWork());
+            gtsManager = new GroupToSubjectManager(new UnitOfWork());
         }
 
         public ActionResult Index()
         {
-            var model = mgr.GetGroups();
+            var model = groupManager.GetGroups();
             return View(model);
         }
 
@@ -35,7 +39,7 @@ namespace UniversityWeb.Controllers
         [HttpPost]
         public ActionResult Add(Group group)
         {
-            mgr.InsertGroup(group);
+            groupManager.InsertGroup(group);
             return RedirectToAction("Index");
         }
 
@@ -47,7 +51,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int groupId = id.Value;
-            var model = mgr.GetRawGroupByID(groupId);
+            var model = groupManager.GetRawGroupByID(groupId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -59,7 +63,7 @@ namespace UniversityWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            mgr.DeleteGroup(id);
+            groupManager.DeleteGroup(id);
             return RedirectToAction("Index");
         }
 
@@ -70,7 +74,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int groupId = id.Value;
-            var model = mgr.GetRawGroupByID(groupId);
+            var model = groupManager.GetRawGroupByID(groupId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -83,10 +87,28 @@ namespace UniversityWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                mgr.UpdateGroup(group);
+                groupManager.UpdateGroup(group);
                 return RedirectToAction("Index");
             }
             return View(group);
+        }
+
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return HttpNotFound();
+            }
+            int groupId = id.Value;
+            Group group = groupManager.GetRawGroupByID(groupId);
+            var subjectList = gtsManager.GetSubjectsForGroup(groupId);
+            GroupDetailModel model = new GroupDetailModel
+            {
+                Id = group.Id,
+                Name = group.Name,
+                Subjects = subjectList
+            };
+            return View(model);
         }
     }
 }
