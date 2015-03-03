@@ -22,3 +22,7 @@ table, tr, td, th, tbody, thead{
 td, th{
     padding: 3px;
 }
+a{
+    text-decoration: none;
+    color: blue;
+}

@@ -1,4 +1,6 @@
-﻿@model UniversityWeb.Models.Students.StudentEditModel
+﻿@model UniversityWeb.Models.Students.StudentAddEditModel
+
+@{ ViewBag.Title = Model.FirstName + " " + Model.LastName; }
 
 @using (Html.BeginForm())
 {

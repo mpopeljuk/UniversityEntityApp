@@ -11,6 +11,7 @@ namespace BLL.Interfaces
     public interface IStudentManager 
     {
         IEnumerable<StudentDTO> GetStudents();
+        IEnumerable<Student> GetStudentsByGroupId(int groupId);
         StudentDTO GetStudentByID(int studentId);
         Student GetRawStudentByID(int studentId);
         Student InsertStudent(Student student);

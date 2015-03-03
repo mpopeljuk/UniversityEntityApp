@@ -17,11 +17,15 @@ namespace UniversityWeb.Controllers
     {
         public IGroupManager groupManager;
         public IGroupToSubjectManager gtsManager;
+        public IStudentManager studentManager;
 
         public GroupsController()
         {
-            groupManager = new GroupManager(new UnitOfWork());
-            gtsManager = new GroupToSubjectManager(new UnitOfWork());
+            UnitOfWork uow = new UnitOfWork();
+
+            groupManager = new GroupManager(uow);
+            gtsManager = new GroupToSubjectManager(uow);
+            studentManager = new StudentManager(uow);
         }
 
         public ActionResult Index()
@@ -101,12 +105,18 @@ namespace UniversityWeb.Controllers
             }
             int groupId = id.Value;
             Group group = groupManager.GetRawGroupByID(groupId);
+            if(group == null)
+            {
+                return HttpNotFound();
+            }
             var subjectList = gtsManager.GetSubjectsForGroup(groupId);
+            var studentList = studentManager.GetStudentsByGroupId(groupId);
             GroupDetailModel model = new GroupDetailModel
             {
                 Id = group.Id,
                 Name = group.Name,
-                Subjects = subjectList
+                Subjects = subjectList,
+                Students = studentList
             };
             return View(model);
         }

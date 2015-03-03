@@ -6,7 +6,7 @@ using System.Web;
 
 namespace UniversityWeb.Models.Students
 {
-    public class StudentAddModel
+    public class StudentAddEditModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

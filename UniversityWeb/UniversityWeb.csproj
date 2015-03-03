@@ -125,8 +125,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Groups\GroupDetailModel.cs" />
-    <Compile Include="Models\Students\StudentAddModel.cs" />
-    <Compile Include="Models\Students\StudentEditModel.cs" />
+    <Compile Include="Models\Students\StudentAddEditModel.cs" />
     <Compile Include="Models\Subjects\SubjectDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -21,22 +21,12 @@ namespace BLL.Implements
         public IEnumerable<GroupToSubject> GetSubjectsForGroup(int groupId)
         {
             var list = uOW.GroupToSubjectRep.GetSubjectsForGroup(groupId);
-            /*var result = list.Select(item => new GroupToSubjectDTO
-            { 
-                Id = item.SubjectId,
-                Name = item.Subject.Name
-                });*/
             return list.ToList();
         }
 
         public IEnumerable<GroupToSubject> GetGroupsForSubject(int subjectId)
         {
             var list = uOW.GroupToSubjectRep.GetGroupsForSubject(subjectId);
-                /*.Select(item => new GroupToSubjectDTO()
-                {
-                    Id = item.SubjectId,
-                    Name = item.Subject.Name
-                });*/
             return list.ToList();
         }
 

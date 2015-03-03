@@ -15,6 +15,15 @@
         
     </dl>
     <div>
+        <h2>Students</h2>
+        <ul>
+            @foreach (var item in Model.Students)
+            {
+                <li>@item.FirstName, @item.LastName</li>
+            }
+        </ul>
+    </div>
+    <div>
         <h2>List of subjects</h2>
         <ul>
             @foreach (var item in Model.Subjects)

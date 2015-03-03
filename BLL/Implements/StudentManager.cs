@@ -31,6 +31,12 @@ namespace BLL.Implements
             return list.ToList();
         }
 
+        public IEnumerable<Student> GetStudentsByGroupId(int groupId)
+        {
+            var list = uOW.StudentRep.Get().Where(item => item.GroupId == groupId);
+            return list.ToList();
+        }
+
         public StudentDTO GetStudentByID(int studentId)
         {
             Student item = uOW.StudentRep.GetByID(studentId);

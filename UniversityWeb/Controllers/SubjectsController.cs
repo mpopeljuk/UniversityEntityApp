@@ -18,8 +18,10 @@ namespace UniversityWeb.Controllers
 
         public SubjectsController()
         {
-            subjectManager = new SubjectManager(new UnitOfWork());
-            gtsManager = new GroupToSubjectManager(new UnitOfWork());
+            UnitOfWork uow = new UnitOfWork();
+
+            subjectManager = new SubjectManager(uow);
+            gtsManager = new GroupToSubjectManager(uow);
         }
 
         public ActionResult Index()
@@ -95,12 +97,16 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int subjectId = id.Value;
-            Subject group = subjectManager.GetRawSubjectByID(subjectId);
+            Subject subject = subjectManager.GetRawSubjectByID(subjectId);
+            if (subject == null)
+            {
+               return HttpNotFound(); 
+            }
             var groupList = gtsManager.GetGroupsForSubject(subjectId);
             SubjectDetailModel model = new SubjectDetailModel
             {
-                Id = group.Id,
-                Name = group.Name,
+                Id = subject.Id,
+                Name = subject.Name,
                 Groups = groupList
             };
             return View(model);

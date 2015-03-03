@@ -1,4 +1,5 @@
-﻿using BLL.Implements;
+﻿using BLL.DTO;
+using BLL.Implements;
 using BLL.Interfaces;
 using DAL;
 using DBModels;
@@ -18,8 +19,10 @@ namespace UniversityWeb.Controllers
 
         public StudentsController()
         {
-            studentManager = new StudentManager(new UnitOfWork());
-            groupManager = new GroupManager(new UnitOfWork());
+            UnitOfWork uow = new UnitOfWork();
+
+            studentManager = new StudentManager(uow);
+            groupManager = new GroupManager(uow);
         }
 
         public ActionResult Index()
@@ -31,7 +34,8 @@ namespace UniversityWeb.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            StudentAddModel model = new StudentAddModel { Groups = groupManager.GetGroups() };
+            StudentAddEditModel model = new StudentAddEditModel { Groups = groupManager.GetGroups() };
+
             return View(model);
         }
 
@@ -50,7 +54,7 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             int studentId = id.Value;
-            var model = studentManager.GetRawStudentByID(studentId);
+            var model = studentManager.GetStudentByID(studentId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -79,7 +83,7 @@ namespace UniversityWeb.Controllers
             {
                 return HttpNotFound();
             }
-            var model = new StudentEditModel
+            var model = new StudentAddEditModel
             {
                 FirstName = student.FirstName,
                 LastName = student.LastName,
@@ -87,6 +91,7 @@ namespace UniversityWeb.Controllers
                 GroupId = student.GroupId,
                 Groups = groupManager.GetGroups()
             };
+
             return View(model);
         }
         
