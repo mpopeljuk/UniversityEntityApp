@@ -19,13 +19,12 @@ namespace UniversityWeb.Controllers
         public IGroupToSubjectManager gtsManager;
         public IStudentManager studentManager;
 
-        public GroupsController()
+        public GroupsController(IGroupManager groupManager, IGroupToSubjectManager gtsManager,
+                IStudentManager studentManager)
         {
-            UnitOfWork uow = new UnitOfWork();
-
-            groupManager = new GroupManager(uow);
-            gtsManager = new GroupToSubjectManager(uow);
-            studentManager = new StudentManager(uow);
+            this.groupManager = groupManager;
+            this.gtsManager = gtsManager;
+            this.studentManager = studentManager;
         }
 
         public ActionResult Index()

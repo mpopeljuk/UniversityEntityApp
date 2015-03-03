@@ -17,12 +17,10 @@ namespace UniversityWeb.Controllers
         IStudentManager studentManager;
         IGroupManager groupManager;
 
-        public StudentsController()
+        public StudentsController(IStudentManager studentManager, IGroupManager groupManager)
         {
-            UnitOfWork uow = new UnitOfWork();
-
-            studentManager = new StudentManager(uow);
-            groupManager = new GroupManager(uow);
+            this.studentManager = studentManager;
+            this.groupManager = groupManager;
         }
 
         public ActionResult Index()
@@ -34,7 +32,7 @@ namespace UniversityWeb.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            StudentAddEditModel model = new StudentAddEditModel { Groups = groupManager.GetGroups() };
+            var model = new StudentAddEditModel { Groups = groupManager.GetGroups() };
 
             return View(model);
         }
