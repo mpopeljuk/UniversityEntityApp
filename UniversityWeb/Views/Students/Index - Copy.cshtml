@@ -1,4 +1,4 @@
-﻿@model UniversityWeb.Models.Students.StudentIndexModel
+﻿@model IEnumerable<BLL.DTO.StudentDTO>
 @{ViewBag.Title = "Students";}
 <div>
     <h1>Our students</h1>
@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody id="studentsList">
-                @foreach (var item in Model.Students)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.FirstName</td>
@@ -23,7 +23,8 @@
                         <td>@item.GroupName</td>
                         <td>
                             @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) 
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
+                            
                         </td>
                     </tr>
                 }
@@ -31,5 +32,4 @@
         </table>
         @Html.ActionLink("Add new student", "Add")  
     </div>
-    @Html.Partial("AjaxAdd", Model.Groups)
 </div>

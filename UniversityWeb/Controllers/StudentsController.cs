@@ -25,7 +25,15 @@ namespace UniversityWeb.Controllers
 
         public ActionResult Index()
         {
-            var model = studentManager.GetStudents();
+            //var model = studentManager.GetStudents();
+
+            //new tasks = new models)
+            var model = new StudentIndexModel
+            {
+                Students = studentManager.GetStudents(),
+                Groups = groupManager.GetGroups()
+            };
+            
             return View(model);
         }
 
@@ -42,6 +50,15 @@ namespace UniversityWeb.Controllers
         {
             studentManager.InsertStudent(student);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult AjaxAdd(Student student)
+        {
+            studentManager.InsertStudent(student);
+            //returning all data, but we can return only 1 row
+            //which is a studentDTO
+            return Json(studentManager.GetStudents());
         }
 
         [HttpGet]

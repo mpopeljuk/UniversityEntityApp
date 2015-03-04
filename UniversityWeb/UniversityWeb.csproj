@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Models\Groups\GroupDetailModel.cs" />
     <Compile Include="Models\Students\StudentAddEditModel.cs" />
+    <Compile Include="Models\Students\StudentIndexModel.cs" />
     <Compile Include="Models\Subjects\SubjectDetailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -159,6 +160,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\students-add.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -189,6 +191,8 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Groups\Details.cshtml" />
     <Content Include="Views\Subjects\Details.cshtml" />
+    <Content Include="Views\Students\AjaxAdd.cshtml" />
+    <Content Include="Views\Students\Index - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
