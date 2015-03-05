@@ -10,7 +10,6 @@ namespace UniversityWeb.Models.Students
     public class StudentIndexModel
     {
         public IEnumerable<StudentDTO> Students { get; set; }
-
         public IEnumerable<GroupDTO> Groups { get; set; }
     }
 }

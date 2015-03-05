@@ -193,6 +193,8 @@
     <Content Include="Views\Subjects\Details.cshtml" />
     <Content Include="Views\Students\AjaxAdd.cshtml" />
     <Content Include="Views\Students\Index - Copy.cshtml" />
+    <Content Include="Views\Students\GetStudent.cshtml" />
+    <Content Include="Views\Students\GetStudentsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

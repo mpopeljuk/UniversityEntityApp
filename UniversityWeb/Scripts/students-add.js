@@ -1,9 +1,10 @@
 ﻿$(document).ready(function () {
     $("#create-student").click(function () {
-        console.log($("#add-student-form").serialize());
+        //console.log($("#add-student-form").serialize());
+
         $.ajax({
-            type: "POST",
-            url: "/Students/AjaxAdd",
+            type: 'POST',
+            url: '/Students/AjaxAdd',
             //if we want get form as an object by name attribute
             //data: $("#add-student-form").serialize()
             //getting values from each input separately by id
@@ -12,8 +13,13 @@
                 LastName: $("#LastName").val(),
                 Age: $("#Age").val(),
                 GroupId: $("#GroupId").val(),
+            },
+            success: function (data) {
+                $('#students-table').html(data);
             }
-        }).done(function (data) {
+        });
+        
+        /*.done(function (data) {
             $("#studentsList").empty();
             //using foreach function I've found in internet
             //have no idea how it works
@@ -27,7 +33,6 @@
                     '<a href="/Students/Delete/' + item.Id + '">Delete</a>')
                 );
                 $('#studentsList').append(tr);
-            });
-        });
+            });*/
     });
 });
