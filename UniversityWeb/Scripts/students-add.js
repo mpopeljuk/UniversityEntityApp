@@ -14,8 +14,12 @@
                 Age: $("#Age").val(),
                 GroupId: $("#GroupId").val(),
             },
+            dataType: 'html',
             success: function (data) {
                 $('#students-table').html(data);
+            },
+            error: function (err) {
+                console.log(err);
             }
         });
         

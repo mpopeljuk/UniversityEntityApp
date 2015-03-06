@@ -37,11 +37,7 @@ namespace UniversityWeb.Controllers
             return View(model);
         }
 
-        public ActionResult GetStudentsTable()
-        {
-            var model = studentManager.GetStudents();
-            return PartialView(model);
-        }
+        
 
         [HttpGet]
         public ActionResult GetStudent(int? id)
@@ -65,13 +61,19 @@ namespace UniversityWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetStudentsTable()
+        {
+            var model = studentManager.GetStudents();
+            return PartialView(model);
+        }
+
         [HttpPost]
         public ActionResult AjaxAdd(Student student)
         {
             studentManager.InsertStudent(student);
             //returning all data, but we can return only 1 row
             //which is a studentDTO
-            return PartialView("GetStudentsTable", studentManager.GetStudents());
+            return RedirectToAction("GetStudentsTable");
         }
 
         [HttpGet]
