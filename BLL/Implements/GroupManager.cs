@@ -18,6 +18,11 @@ namespace BLL.Implements
         {
         }
 
+        public GroupManager() : base(new UnitOfWork())
+        {
+            // TODO: Complete member initialization
+        }
+
         public IEnumerable<GroupDTO> GetGroups()
         {
             var list = uOW.GroupRep.Get().Select(item => new GroupDTO()
