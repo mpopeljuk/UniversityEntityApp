@@ -58,7 +58,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CrudGroupsTableTest.cs" />
+    <Compile Include="GTSManagerTest.cs" />
+    <Compile Include="StudentManagerTest.cs" />
+    <Compile Include="SubjectManagerTest.cs" />
+    <Compile Include="GroupManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +77,15 @@
       <Project>{5e3b07d7-68d8-41ee-a88d-03fa29c785d8}</Project>
       <Name>DBModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniversityWeb\UniversityWeb.csproj">
+      <Project>{db055ccd-8cac-4660-aa31-f22d36fc9ce2}</Project>
+      <Name>UniversityWeb</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Choose>
