@@ -15,28 +15,54 @@ namespace UniversityAPI.Controllers
     public class GroupsController : ApiController
     {
         private IGroupManager groupManager;
+        private IStudentManager studentManager;
 
         public GroupsController()
         {
             UnitOfWork uOW = new UnitOfWork();
 
             groupManager = new GroupManager(uOW);
+            studentManager = new StudentManager(uOW);
         }
 
         [HttpGet]
-        public IEnumerable<GroupDTO> GetGroups()
+        public HttpResponseMessage GetGroups()
         {
-            IEnumerable<GroupDTO> list = null;
+            HttpResponseMessage response = new HttpResponseMessage();
+            IEnumerable<GroupDTO> list;
+
             try
             {
                 list = groupManager.GetGroups();
+                response = Request.CreateResponse<IEnumerable<GroupDTO>>(
+                        HttpStatusCode.OK, list);
             }
             catch (Exception)
             {
-                this.ActionContext.Response.StatusCode = HttpStatusCode.InternalServerError;
+                response.StatusCode = HttpStatusCode.InternalServerError;
             }
 
-            return list;
+            return response;
+        }
+
+        [HttpGet]
+        public HttpResponseMessage GetGroupDetail(int id)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+            IEnumerable<Student> list;
+
+            try
+            {
+                list = studentManager.GetStudentsByGroupId(id);
+                response = Request.CreateResponse<IEnumerable<Student>>(
+                        HttpStatusCode.OK, list);
+            }
+            catch (Exception)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+            }
+
+            return response;
         }
 
         [HttpPut]
