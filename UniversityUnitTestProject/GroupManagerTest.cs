@@ -61,10 +61,14 @@ namespace UniversityUnitTestProject
                 Name = name
             };
 
+            int preCount = manager.GetGroups().Count();
+
             manager.InsertGroup(item);
+            int postCount = manager.GetGroups().Count();
 
             Assert.IsNotNull(item, "Inserted group is null!");
             Assert.IsNotNull(item.Id, "Inserted group Id null");
+            Assert.AreEqual(preCount + 1, postCount, "Number of deleted rows are not 1. Its " + (postCount - preCount));
             Assert.IsInstanceOfType(item.Id, typeof(int), "Inserted group Id is not int");
             Assert.AreEqual(name, item.Name, "Inserted group Name is not as expected");
         }
@@ -74,6 +78,7 @@ namespace UniversityUnitTestProject
         {
             var id = manager.GetGroups().LastOrDefault().Id;
             var item = manager.GetRawGroupByID(id);
+
             string name = "UnitTestGroupUpdate";
             item.Name = name;
 
@@ -89,13 +94,16 @@ namespace UniversityUnitTestProject
         [TestMethod]
         public void DeleteGroup()
         {
+            int preCount = manager.GetGroups().Count();
             int id = manager.GetGroups().LastOrDefault().Id;
 
             manager.DeleteGroup(id);
 
             var item = manager.GetRawGroupByID(id);
+            int postCount = manager.GetGroups().Count();
 
             Assert.IsNull(item, "Group was not deleted!");
+            Assert.AreEqual(preCount - 1, postCount, "Number of deleted rows are not 1. Its " + (postCount-preCount));
         }
 
     }

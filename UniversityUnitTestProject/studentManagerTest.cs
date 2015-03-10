@@ -74,6 +74,8 @@ namespace UniversityUnitTestProject
         [TestMethod]
         public void InsertStudent()
         {
+            int preCount = manager.GetStudents().Count();
+
             var tempManager = new GroupManager(new UnitOfWork());
 
             string firstName = "UnitTestStudentFirstName";
@@ -90,6 +92,7 @@ namespace UniversityUnitTestProject
             };
 
             manager.InsertStudent(item);
+            int postCount = manager.GetStudents().Count();
 
             Assert.IsNotNull(item, "Inserted Student is null!");
             Assert.IsNotNull(item.Id, "Inserted Student Id null");
@@ -103,6 +106,8 @@ namespace UniversityUnitTestProject
                     "Inserted Student Age is not as expected");
             Assert.AreEqual(groupId, item.GroupId,
                     "Inserted Student GroupId is not as expected");
+            Assert.AreEqual(preCount + 1, postCount, 
+                "Number of deleted rows are not 1. Its " + (postCount + preCount));
         }
 
         [TestMethod]
@@ -143,13 +148,18 @@ namespace UniversityUnitTestProject
         [TestMethod]
         public void DeleteStudent()
         {
+            int preCount = manager.GetStudents().Count();
+
             int id = manager.GetStudents().LastOrDefault().Id;
 
             manager.DeleteStudent(id);
 
+            int postCount = manager.GetStudents().Count();
+
             var item = manager.GetRawStudentByID(id);
 
             Assert.IsNull(item, "Student was not deleted!");
+            Assert.AreEqual(preCount - 1, postCount, "Number of deleted rows are not 1. Its " + (postCount - preCount));
         }
 
     }

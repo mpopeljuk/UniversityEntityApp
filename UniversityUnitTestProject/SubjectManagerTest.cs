@@ -55,6 +55,7 @@ namespace UniversityUnitTestProject
         [TestMethod]
         public void InsertSubject()
         {
+            int preCount = manager.GetSubjects().Count();
             string name = "UnitTestSubject";
             var item = new Subject
             {
@@ -62,28 +63,33 @@ namespace UniversityUnitTestProject
             };
 
             manager.InsertSubject(item);
+            int postCount = manager.GetSubjects().Count();
 
             Assert.IsNotNull(item, "Inserted Subject is null!");
             Assert.IsNotNull(item.Id, "Inserted Subject Id null");
             Assert.IsInstanceOfType(item.Id, typeof(int), "Inserted Subject Id is not int");
             Assert.AreEqual(name, item.Name, "Inserted Subject Name is not as expected");
+            Assert.AreEqual(preCount + 1, postCount, "Number of deleted rows are not 1. Its " + (postCount + preCount));
         }
 
         [TestMethod]
         public void UpdateSubject()
         {
+            int preCount = manager.GetSubjects().Count();
             var id = manager.GetSubjects().LastOrDefault().Id;
             var item = manager.GetRawSubjectByID(id);
             string name = "UnitTestSubjectUpdate";
             item.Name = name;
 
             manager.UpdateSubject(item);
+            int postCount = manager.GetSubjects().Count();
 
             Assert.IsNotNull(item, "Updated Subject is null!");
             Assert.IsNotNull(item.Id, "Updated Subject Id null");
             Assert.IsInstanceOfType(item.Id, typeof(int), "Updated Subject Id is not int");
             Assert.AreEqual(id, item.Id, "Updated Subject Id is not as expected");
             Assert.AreEqual(name, item.Name, "Updated Subject Name is not as expected");
+            Assert.AreEqual(preCount - 1, postCount, "Number of deleted rows are not 1. Its " + (postCount - preCount));
         }
 
         [TestMethod]
