@@ -25,6 +25,7 @@ namespace UniversityWeb.Controllers
 
         public ActionResult Index()
         {
+            HttpContext.Session["asd"] = 2;
             //var model = studentManager.GetStudents();
 
             //new tasks = new models)
@@ -59,6 +60,20 @@ namespace UniversityWeb.Controllers
         {
             studentManager.InsertStudent(student);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult SAddData(string a)
+        {
+            var m = new Student() { FirstName = "Bogdan" };
+            return Json(m, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult SGetStudent()
+        {
+            var m = new Student() { FirstName = "Bogdan" };
+            return Json(m, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetStudentsTable()

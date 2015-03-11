@@ -16,6 +16,7 @@ namespace UniversityAPI.Controllers
     {
         private IGroupManager groupManager;
         private IStudentManager studentManager;
+        private HttpResponseMessage response;
 
         public GroupsController()
         {
@@ -23,12 +24,12 @@ namespace UniversityAPI.Controllers
 
             groupManager = new GroupManager(uOW);
             studentManager = new StudentManager(uOW);
+            response = new HttpResponseMessage();
         }
 
         [HttpGet]
         public HttpResponseMessage GetGroups()
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             IEnumerable<GroupDTO> list;
 
             try
@@ -48,7 +49,6 @@ namespace UniversityAPI.Controllers
         [HttpGet]
         public HttpResponseMessage GetGroupDetail(int id)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
             IEnumerable<Student> list;
 
             try
@@ -66,44 +66,54 @@ namespace UniversityAPI.Controllers
         }
 
         [HttpPut]
-        public bool InsertGroup(Group group)
-        {
-            try
-            {
-                groupManager.InsertGroup(group);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        [HttpDelete]
-        public bool DeleteGroup(int id)
-        {
-            try
-            {
-                groupManager.DeleteGroup(id);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        [HttpPost]
-        public bool UpdateGroup(Group group)
+        public HttpResponseMessage UpdateGroup(Group group)
         {
             try
             {
                 groupManager.UpdateGroup(group);
-                return true;
+
+                response.StatusCode = HttpStatusCode.OK;
+                return response;
             }
             catch (Exception)
             {
-                return false;
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                return response;
+            }
+        }
+        
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteGroup(int id)
+        {
+            try
+            {
+                groupManager.DeleteGroup(id);
+
+                response.StatusCode = HttpStatusCode.OK;
+                return response;
+            }
+            catch (Exception)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                return response;
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage InsertGroup(Group group)
+        {
+            try
+            {
+                groupManager.InsertGroup(group);
+
+                response.StatusCode = HttpStatusCode.OK;
+                return response; 
+            }
+            catch (Exception)
+            {
+                response.StatusCode = HttpStatusCode.InternalServerError;
+                return response;
             }
         }
     }

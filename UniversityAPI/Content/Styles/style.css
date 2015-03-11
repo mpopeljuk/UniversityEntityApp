@@ -2,4 +2,21 @@
 }
 #dialog-window{
     background-color: lightblue;
+    padding: 10px;
+    border: 3px solid grey;
+}
+
+.low-opacity{
+    opacity: 0.4;
+}
+
+.ui-dialog-titlebar-close{
+    position:absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.ui-dialog-buttonpane {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
 }
