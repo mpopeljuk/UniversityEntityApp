@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201503112120156_Auth tables added.cs" />
+    <Compile Include="Migrations\201503112120156_Auth tables added.Designer.cs">
+      <DependentUpon>201503112120156_Auth tables added.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repo\GenericRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201502241544399_First migration.cs" />
@@ -78,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502251055283_Testing seed.resx">
       <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503112120156_Auth tables added.resx">
+      <DependentUpon>201503112120156_Auth tables added.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

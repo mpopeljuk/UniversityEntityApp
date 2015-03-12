@@ -25,6 +25,8 @@ namespace UniversityWeb
             container.RegisterType<IGroupManager, GroupManager>();
             container.RegisterType<ISubjectManager, SubjectManager>();
             container.RegisterType<IGroupToSubjectManager, GroupToSubjectManager>();
+            container.RegisterType<IUserManager, UserManager>();
+            container.RegisterType<IRoleManager, RoleManager>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

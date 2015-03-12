@@ -19,6 +19,8 @@ namespace DAL
         private GenericRepository<Student> studentRepo;
         private GroupToSubjectRepository gtsRep;
 
+        private GenericRepository<Role> roleRepo;
+        private GenericRepository<User> userRepo;
 
         public UnitOfWork()
         {
@@ -28,6 +30,9 @@ namespace DAL
             subjectRepo = new GenericRepository<Subject>(context);
             studentRepo = new GenericRepository<Student>(context);
             gtsRep = new GroupToSubjectRepository(context);
+
+            roleRepo = new GenericRepository<Role>(context);
+            userRepo = new GenericRepository<User>(context);
         }
 
         public GenericRepository<Group> GroupRep
@@ -62,6 +67,22 @@ namespace DAL
             get
             {
                 return gtsRep;
+            }
+        }
+
+        public GenericRepository<Role> RoleRepo
+        {
+            get
+            {
+                return roleRepo;
+            }
+        }
+
+        public GenericRepository<User> UserRepo
+        {
+            get
+            {
+                return userRepo;
             }
         }
 

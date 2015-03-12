@@ -29,7 +29,7 @@ namespace DAL.Migrations
             subjects.Add(new Subject { Name = "Physics" });
 
             context.Groups.AddOrUpdate( groups.ToArray() );
-            context.Subjects.AddOrUpdate(subjects.ToArray());
+            context.Subjects.AddOrUpdate( subjects.ToArray() );
 
             context.Students.AddOrUpdate(
                 new Student { FirstName = "Jack", LastName = "Daniels", Age = 35, Group = groups[0] },
@@ -54,6 +54,18 @@ namespace DAL.Migrations
 
                 new GroupToSubject { Group = groups[2], Subject = subjects[2] },
                 new GroupToSubject { Group = groups[2], Subject = subjects[0] }
+                );
+
+            List<Role> roles = new List<Role>();
+            roles.Add(new Role { Name = "Administrator", Description = "Godlike" });
+            roles.Add(new Role { Name = "Teacher", Description = "Moderator-like" });
+
+            context.Roles.AddOrUpdate( roles.ToArray() );
+
+            context.Users.AddOrUpdate(
+                new User { Login = "admin", Password = "admin", Email = "admin@example.com", Roles = roles[0] },
+                new User { Login = "teacher", Password = "teacher", Email = "teacher@example.com", Roles = roles[1] },
+                new User { Login = "rektor", Password = "rektor", Email = "rektor@example.com", Roles = roles[1] }
                 );
         }
     }
