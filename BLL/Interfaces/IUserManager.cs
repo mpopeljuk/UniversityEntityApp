@@ -10,7 +10,7 @@ namespace BLL.Interfaces
     public interface IUserManager
     {
         IEnumerable<User> GetUsers();
-        User GetUserByLogin(string login, string password);
+        User GetUserByUserName(string login, string password);
         User GetUserByEmail(string email, string password);
         User InsertUser(User user);
         void DeleteUser(int userId);

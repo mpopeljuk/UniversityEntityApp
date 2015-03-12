@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using BLL.Implements;
 using System.Linq;
-using BLL.DTO;
 using DBModels;
+using DBModels.DTO;
 
 namespace UniversityUnitTestProject
 {

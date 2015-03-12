@@ -1,5 +1,5 @@
-﻿using BLL.DTO;
-using DBModels;
+﻿using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

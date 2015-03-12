@@ -44,5 +44,10 @@ namespace BLL.Implements
             uOW.Save();
             return role;
         }
+
+        public DBModels.Role GetRoleByName(string name)
+        {
+            return uOW.RoleRepo.Get().Where(s => s.Name == name).FirstOrDefault();
+        }
     }
 }

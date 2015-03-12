@@ -15,6 +15,11 @@ namespace UniversityWeb.App_Start
         {
             CookieAuthenticationOptions options = new CookieAuthenticationOptions();
             options.AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie;
+            //If someone trying to use method which have [Authorized] 
+            //and he is NOT authorized
+            //He will be redirected to
+            // | | | | | | | | | | | | |
+            // V V V V V V V V V V V V V
             options.LoginPath = new PathString("/account/login");
             app.UseCookieAuthentication(options);
         }

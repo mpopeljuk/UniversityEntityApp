@@ -13,7 +13,7 @@ namespace DBModels
     {
         [Key]
         public int Id { get; set; }
-        public string Login { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public DateTime BirthDate { get; set; }
@@ -21,6 +21,6 @@ namespace DBModels
         public int RoleId { get; set; }
         [ForeignKey("RoleId")]
         [Browsable(false)]
-        public virtual Role Roles { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

@@ -8,7 +8,6 @@ using System.Web.Mvc;
 using DAL;
 using DBModels;
 using System.Net;
-using BLL.DTO;
 using UniversityWeb.Models.Groups;
 
 namespace UniversityWeb.Controllers
@@ -83,6 +82,12 @@ namespace UniversityWeb.Controllers
                 return HttpNotFound();
             }
             return View(model);
+        }
+
+
+        public JsonResult GetById(int? id)
+        {
+            return Json(groupManager.GetGroupByID(id.Value), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

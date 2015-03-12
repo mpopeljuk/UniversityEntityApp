@@ -21,10 +21,10 @@ namespace BLL.Implements
             return list.ToList();
         }
 
-        public DBModels.User GetUserByLogin(string login, string password)
+        public DBModels.User GetUserByUserName(string login, string password)
         {
             var item = uOW.UserRepo.Get()
-                .Where(s => s.Login == login)
+                .Where(s => s.UserName == login)
                 .Where(s => s.Password == password).FirstOrDefault();
 
             if (item != null)

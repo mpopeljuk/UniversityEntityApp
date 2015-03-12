@@ -11,6 +11,7 @@ namespace BLL.Interfaces
     {
         IEnumerable<Role> GetRoles();
         Role GetRoleById(int roleId);
+        Role GetRoleByName(string name);
         Role InsertRole(Role role);
         void DeleteRole(int roleId);
         Role UpdateRole(Role role);

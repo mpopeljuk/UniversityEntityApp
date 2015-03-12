@@ -3,7 +3,7 @@ namespace DAL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Authtablesadded : DbMigration
+    public partial class Authtables : DbMigration
     {
         public override void Up()
         {
@@ -25,6 +25,7 @@ namespace DAL.Migrations
                         Login = c.String(),
                         Email = c.String(),
                         Password = c.String(),
+                        BirthDate = c.DateTime(nullable: false),
                         RoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

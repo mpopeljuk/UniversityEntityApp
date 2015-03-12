@@ -1,8 +1,8 @@
-﻿using BLL.DTO;
-using BLL.Implements;
+﻿using BLL.Implements;
 using BLL.Interfaces;
 using DAL;
 using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;

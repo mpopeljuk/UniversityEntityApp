@@ -1,7 +1,8 @@
-﻿using BLL.DTO;
+﻿using AutoMapper;
 using BLL.Interfaces;
 using DAL;
 using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,27 +21,20 @@ namespace BLL.Implements
 
         public GroupManager() : base(new UnitOfWork())
         {
-            // TODO: Complete member initialization
         }
 
         public IEnumerable<GroupDTO> GetGroups()
         {
-            var list = uOW.GroupRep.Get().Select(item => new GroupDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            });
-            return list.ToList();
+            var list = uOW.GroupRep.Get();
+            var result = Mapper.Map<IEnumerable<GroupDTO>>(list);
+
+            return result.ToList();
         }
 
         public GroupDTO GetGroupByID(int groupId)
         {
             Group item = uOW.GroupRep.GetByID(groupId);
-            return new GroupDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            };
+            return Mapper.Map<GroupDTO>(item);
         }
 
         public Group GetRawGroupByID(int groupId)

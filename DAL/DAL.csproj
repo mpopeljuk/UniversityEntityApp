@@ -46,19 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201503112120156_Auth tables added.cs" />
-    <Compile Include="Migrations\201503112120156_Auth tables added.Designer.cs">
-      <DependentUpon>201503112120156_Auth tables added.cs</DependentUpon>
+    <Compile Include="Migrations\201503121110270_Auth tables.cs" />
+    <Compile Include="Migrations\201503121110270_Auth tables.Designer.cs">
+      <DependentUpon>201503121110270_Auth tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503121153405_whaat.cs" />
+    <Compile Include="Migrations\201503121153405_whaat.Designer.cs">
+      <DependentUpon>201503121153405_whaat.cs</DependentUpon>
     </Compile>
     <Compile Include="Repo\GenericRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Migrations\201502241544399_First migration.cs" />
     <Compile Include="Migrations\201502241544399_First migration.Designer.cs">
       <DependentUpon>201502241544399_First migration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201502251055283_Testing seed.cs" />
-    <Compile Include="Migrations\201502251055283_Testing seed.Designer.cs">
-      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repo\GroupToSubjectRepository.cs" />
@@ -80,11 +80,11 @@
     <EmbeddedResource Include="Migrations\201502241544399_First migration.resx">
       <DependentUpon>201502241544399_First migration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201502251055283_Testing seed.resx">
-      <DependentUpon>201502251055283_Testing seed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503121110270_Auth tables.resx">
+      <DependentUpon>201503121110270_Auth tables.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503112120156_Auth tables added.resx">
-      <DependentUpon>201503112120156_Auth tables added.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503121153405_whaat.resx">
+      <DependentUpon>201503121153405_whaat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,8 @@ namespace UniversityWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             UnityConfig.RegisterComponents();
+
+            Common.AutoMapperConfiguration.Configure();
         }
     }
 }

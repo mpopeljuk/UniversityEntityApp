@@ -6,11 +6,11 @@ using System.Web;
 
 namespace UniversityWeb.Models.Auth
 {
-    public class LoginModel
+    public class Login
     {
         [Required]
         [Display(Name = "Login")]
-        public string Login { get; set; }
+        public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

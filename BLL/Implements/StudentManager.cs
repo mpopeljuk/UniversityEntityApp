@@ -1,5 +1,4 @@
 ﻿using DBModels;
-using BLL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using BLL.Interfaces;
+using DBModels.DTO;
+using AutoMapper;
 
 namespace BLL.Implements
 {
@@ -19,16 +20,15 @@ namespace BLL.Implements
 
         public IEnumerable<StudentDTO> GetStudents()
         {
-            var list = uOW.StudentRep.Get().Select(item => new StudentDTO()
-            {
-                Id = item.Id,
-                FirstName = item.FirstName,
-                LastName = item.LastName,
-                Age = item.Age,
-                GroupName = item.Group.Name
-            });
+            var students = uOW.StudentRep.Get();
+            var result = Mapper.Map<IEnumerable<StudentDTO>>(students);
 
-            return list.ToList();
+            //foreach (var s in result){
+            //    var match = students.FirstOrDefault(f=>f.Id == s.Id);
+            //    s.GroupName = match.Group.Name;
+            //}
+
+            return result.ToList();
         }
 
         public IEnumerable<Student> GetStudentsByGroupId(int groupId)
@@ -39,14 +39,8 @@ namespace BLL.Implements
 
         public StudentDTO GetStudentByID(int studentId)
         {
-            Student item = uOW.StudentRep.GetByID(studentId);
-            return new StudentDTO()
-            {
-                FirstName = item.FirstName,
-                LastName = item.LastName,
-                Age = item.Age,
-                GroupName = item.Group.Name
-            };
+            var item = uOW.StudentRep.GetByID(studentId);
+            return Mapper.Map<StudentDTO>(item);
         }
 
         public Student GetRawStudentByID(int studentId)

@@ -7,13 +7,13 @@ namespace DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class Authtablesadded : IMigrationMetadata
+    public sealed partial class Authtables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Authtablesadded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Authtables));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503112120156_Auth tables added"; }
+            get { return "201503121110270_Auth tables"; }
         }
         
         string IMigrationMetadata.Source

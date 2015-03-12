@@ -63,9 +63,9 @@ namespace DAL.Migrations
             context.Roles.AddOrUpdate( roles.ToArray() );
 
             context.Users.AddOrUpdate(
-                new User { Login = "admin", Password = "admin", Email = "admin@example.com", Roles = roles[0] },
-                new User { Login = "teacher", Password = "teacher", Email = "teacher@example.com", Roles = roles[1] },
-                new User { Login = "rektor", Password = "rektor", Email = "rektor@example.com", Roles = roles[1] }
+                new User { UserName = "admin", Password = "admin", Email = "admin@example.com", Role = roles[0], BirthDate = DateTime.UtcNow },
+                new User { UserName = "teacher", Password = "teacher", Email = "teacher@example.com", Role = roles[1], BirthDate = DateTime.UtcNow },
+                new User { UserName = "rektor", Password = "rektor", Email = "rektor@example.com", Role = roles[1], BirthDate = DateTime.UtcNow }
                 );
         }
     }

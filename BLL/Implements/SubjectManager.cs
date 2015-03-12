@@ -1,7 +1,8 @@
-﻿using BLL.DTO;
+﻿using AutoMapper;
 using BLL.Interfaces;
 using DAL;
 using DBModels;
+using DBModels.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,22 +20,16 @@ namespace BLL.Implements
 
         public IEnumerable<SubjectDTO> GetSubjects()
         {
-            var list = uOW.SubjectRep.Get().Select(item => new SubjectDTO()
-            {
-                Id = item.Id,
-                Name = item.Name
-            });
+            var list = uOW.SubjectRep.Get();
+            var result = Mapper.Map<IEnumerable<SubjectDTO>>(list);
 
-            return list.ToList();
+            return result.ToList();
         }
 
         public SubjectDTO GetSubjectByID(int subjectId)
         {
             Subject item = uOW.SubjectRep.GetByID(subjectId);
-            return new SubjectDTO() {
-                Id = item.Id,
-                Name = item.Name
-            };
+            return Mapper.Map<SubjectDTO>(item);
         }
 
         public Subject GetRawSubjectByID(int subjectId)

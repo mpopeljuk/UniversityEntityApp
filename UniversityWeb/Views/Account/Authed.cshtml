@@ -1,0 +1,18 @@
+﻿@using System.Security.Claims
+
+<h1>@User.Identity.Name, YEAH</h1>
+@{
+    var claimsIdentity = User.Identity as System.Security.Claims.ClaimsIdentity;
+
+    <p>Email : @claimsIdentity.FindFirst(ClaimTypes.Email).Value</p>
+    <p>DateOfBirth : @claimsIdentity.FindFirst(ClaimTypes.DateOfBirth).Value</p>
+    <p>Role : @claimsIdentity.FindFirst(ClaimTypes.Role).Value</p>
+    if (User.IsInRole("Administrator"))
+    {
+        <p>Admin rights</p>
+    }
+    else if (User.IsInRole("Teacher"))
+    {
+        <p>Teacher rights</p>
+    }
+}

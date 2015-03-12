@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL.DTO
+namespace DBModels.DTO
 {
-    public class GroupToSubjectDTO
+    public class NameIdPairDTO
     {
-        public int Id { get; set; }
         public string Name { get; set; }
+        public int Id { get; set; }
     }
 }
