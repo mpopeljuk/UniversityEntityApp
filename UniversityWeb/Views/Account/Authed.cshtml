@@ -7,6 +7,7 @@
     <p>Email : @claimsIdentity.FindFirst(ClaimTypes.Email).Value</p>
     <p>DateOfBirth : @claimsIdentity.FindFirst(ClaimTypes.DateOfBirth).Value</p>
     <p>Role : @claimsIdentity.FindFirst(ClaimTypes.Role).Value</p>
+    
     if (User.IsInRole("Administrator"))
     {
         <p>Admin rights</p>

@@ -24,8 +24,8 @@ namespace BLL.Implements
         public DBModels.User GetUserByUserName(string login, string password)
         {
             var item = uOW.UserRepo.Get()
-                .Where(s => s.UserName == login)
-                .Where(s => s.Password == password).FirstOrDefault();
+                .Where(s => (s.UserName == login && s.Password == password) )
+                .FirstOrDefault();
 
             if (item != null)
             {
@@ -37,8 +37,8 @@ namespace BLL.Implements
         public DBModels.User GetUserByEmail(string email, string password)
         {
             var item = uOW.UserRepo.Get()
-                .Where(s => s.Email == email)
-                .Where(s => s.Password == password).FirstOrDefault();
+                .Where(s => (s.Email == email && s.Password == password))
+                .FirstOrDefault();
 
             if (item != null)
             {
