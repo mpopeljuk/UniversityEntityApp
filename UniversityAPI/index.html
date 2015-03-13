@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html >
+<html>
 <head>
     <title>WebAPI</title>
     <link rel="stylesheet" type="text/css" href="Content/Styles/bootstrap.min.css" />
@@ -7,6 +7,11 @@
 </head>
 <body>
     <div class="col-md-6 col-md-offset-3" id="container">
+        <div class="auth-container">
+            <a class="btn btn-default" href="#" id="open-login">Login</a>
+            <a class="btn btn-success" href="#" id="open-register">Register</a>
+            <a class="btn btn-default" href="#" id="logout-button">Logout</a>
+        </div>
         <h1>Students</h1>
         <a id="open-dialog" href="#">Open dialog</a>
         <table class="table">
@@ -22,7 +27,7 @@
         </table>
     </div>
     <!--Dialog-->
-    <div id="dialog-window">
+    <div class="dialog-layer" id="dialog-window">
         <h3>Add or update</h3>
         <form>
             <div class="form-group">
@@ -43,6 +48,42 @@
                     <option value="2">441</option>
                 </select>
                 <br />
+            </div>
+        </form>
+    </div>
+    <!--/Dialog-->
+    <!--Dialog-->
+    <div class="dialog-layer" id="auth-dialog">
+        <h3>Auth</h3>
+        <form>
+            <div class="form-group">
+
+                <div class="username-block">
+                    <label for="username">User name</label>
+                    <input class="form-control" id="username" type="text" name="UserName" />
+                </div>
+
+                <div class="password-block">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" type="password" name="Password" />
+                </div>
+
+                <div class="confirm-password-block">
+                    <label for="password-confirm">Confirm Password</label>
+                    <input class="form-control" id="confirm-password" type="password" name="Password" />
+                </div>
+
+                <div class="email-block">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" type="email" name="Email" />
+                </div>
+
+                <div class="birthdate-block">
+                    <label for="birthdate">BirthDate</label>
+                    <input class="form-control" id="birthdate" type="datetime" name="BirthDate" />
+                </div>
+
+                <br /><br /><br />
             </div>
         </form>
     </div>

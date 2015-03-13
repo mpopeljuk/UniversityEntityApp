@@ -32,12 +32,14 @@ namespace UniversityWeb.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Add()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Add(Group group)
         {
@@ -45,6 +47,7 @@ namespace UniversityWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -61,6 +64,7 @@ namespace UniversityWeb.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -69,6 +73,7 @@ namespace UniversityWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (!id.HasValue)
@@ -90,6 +95,7 @@ namespace UniversityWeb.Controllers
             return Json(groupManager.GetGroupByID(id.Value), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Group group)
         {
@@ -109,7 +115,7 @@ namespace UniversityWeb.Controllers
             }
             int groupId = id.Value;
             Group group = groupManager.GetRawGroupByID(groupId);
-            if(group == null)
+            if (group == null)
             {
                 return HttpNotFound();
             }
