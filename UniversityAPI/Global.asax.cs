@@ -12,6 +12,7 @@ namespace UniversityAPI
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            Common.AutoMapperConfiguration.Configure();
         }
     }
 }
